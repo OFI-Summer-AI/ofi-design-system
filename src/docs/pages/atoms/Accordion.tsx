@@ -18,7 +18,7 @@ export default function AccordionDoc() {
         preview={
           <Accordion type="single" collapsible className="w-full max-w-md">
             <AccordionItem value="a">
-              <AccordionTrigger>What is the OFI Design System?</AccordionTrigger>
+              <AccordionTrigger>What is OfiUI?</AccordionTrigger>
               <AccordionContent>
                 A React + TypeScript component library for building OFI's product surfaces.
               </AccordionContent>

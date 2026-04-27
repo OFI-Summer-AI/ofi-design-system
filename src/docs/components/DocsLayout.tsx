@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useRef } from "react"
+import BrandLogo from "@/components/BrandLogo"
 import { cn } from "@/lib/utils"
 import { docSections, flatRoutes } from "../routes"
 import { useHashRoute } from "../router"
@@ -22,12 +23,7 @@ export default function DocsLayout() {
   return (
     <div className="min-h-screen bg-background text-foreground">
       <header className="sticky top-0 z-30 flex h-14 items-center gap-3 border-b border-border bg-background/80 px-6 backdrop-blur">
-        <div className="flex items-center gap-2 text-sm font-semibold">
-          <div className="flex h-6 w-6 items-center justify-center rounded-sm bg-brand text-[11px] font-bold text-black">
-            O
-          </div>
-          OFI Design System
-        </div>
+        <BrandLogo imageClassName="h-7" />
         <nav className="ml-6 flex items-center gap-4 text-sm text-foreground-muted">
           <a className="text-foreground" href="#/introduction">Docs</a>
           <a href="https://github.com" className="hover:text-foreground">GitHub</a>

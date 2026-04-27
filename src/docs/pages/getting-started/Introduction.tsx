@@ -6,7 +6,7 @@ export default function Introduction() {
     <>
       <PageHeader
         title="Introduction"
-        description="The OFI Design System is a React + TypeScript component library that powers OFI's product surfaces. It is built on top of shadcn/ui, Radix primitives, and Tailwind CSS."
+        description="OfiUI is a React + TypeScript component library that powers OFI's product surfaces. It is built on top of shadcn/ui, Radix primitives, and Tailwind CSS."
       />
 
       <H2>What's inside</H2>

@@ -1,5 +1,7 @@
 import { useEffect, useRef, useState } from "react"
 import { LandingPage } from "@/LandingPage"
+import BrandLogo from "@/components/BrandLogo"
+import DocsApp from "@/docs/DocsApp"
 import {
   BarChart2,
   Bell,
@@ -1265,12 +1267,7 @@ function Sidebar({
           onClick={onGoHome}
           className="flex items-center gap-2 w-full rounded-md hover:opacity-80 transition-opacity"
         >
-          <div className="h-6 w-6 rounded bg-primary flex items-center justify-center">
-            <svg viewBox="0 0 24 24" className="h-3.5 w-3.5 text-primary-foreground" fill="currentColor">
-              <path d="M13.8 2L3 14h8l-.8 8 10.8-12h-8z" />
-            </svg>
-          </div>
-          <span className="text-sm font-semibold tracking-tight">ofi / design</span>
+          <BrandLogo imageClassName="h-6" />
         </button>
       </div>
 
@@ -1307,41 +1304,10 @@ function Sidebar({
 
 export default function App() {
   const [view, setView] = useState<"landing" | "docs">("landing")
-  const [page, setPage] = useState<PageId>("introduction")
-  const mainRef = useRef<HTMLElement>(null)
-
-  const activeLabel =
-    navGroups.flatMap((g) => g.items).find((i) => i.id === page)?.label ?? ""
-
-  function navigateTo(id: PageId) {
-    setPage(id)
-    mainRef.current?.scrollTo({ top: 0 })
-  }
 
   if (view === "landing") {
     return <LandingPage onEnterDocs={() => setView("docs")} />
   }
 
-  return (
-    <div className="min-h-screen flex bg-background text-foreground">
-      <Sidebar active={page} onNavigate={navigateTo} onGoHome={() => setView("landing")} />
-
-      <div className="flex-1 flex flex-col min-w-0">
-        <header className="sticky top-0 z-10 flex items-center gap-2 border-b border-border bg-card/80 backdrop-blur px-6 h-12 text-sm text-muted-foreground">
-          <button
-            onClick={() => setView("landing")}
-            className="hover:text-foreground transition-colors"
-          >
-            ofi design system
-          </button>
-          <ChevronRight className="h-3.5 w-3.5" />
-          <span className="text-foreground font-medium">{activeLabel}</span>
-        </header>
-
-        <main ref={mainRef} className="flex-1 overflow-y-auto px-8 py-8 max-w-4xl">
-          <PageContent page={page} />
-        </main>
-      </div>
-    </div>
-  )
+  return <DocsApp />
 }

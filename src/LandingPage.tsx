@@ -1,4 +1,5 @@
 import { ArrowRight, Check, Code2, Layers, Palette, Shield, TrendingUp } from "lucide-react"
+import BrandLogo from "@/components/BrandLogo"
 import { Admonition } from "@/components/ui-patterns/admonition"
 import { Avatar, AvatarFallback } from "@/components/ui/avatar"
 import { Badge } from "@/components/ui/badge"
@@ -9,23 +10,6 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Progress } from "@/components/ui/progress"
 import { Switch } from "@/components/ui/switch"
-
-// ─── Shared ───────────────────────────────────────────────────────────────────
-
-function Logo({ light = false }: { light?: boolean }) {
-  return (
-    <div className="flex items-center gap-2.5">
-      <div className="h-7 w-7 rounded-lg bg-primary flex items-center justify-center shrink-0 shadow-[0_0_12px_rgba(234,179,8,0.4)]">
-        <svg viewBox="0 0 24 24" className="h-4 w-4 text-primary-foreground" fill="currentColor">
-          <path d="M13.8 2L3 14h8l-.8 8 10.8-12h-8z" />
-        </svg>
-      </div>
-      <span className={`text-sm font-semibold tracking-tight ${light ? "text-white" : "text-foreground"}`}>
-        ofi / design
-      </span>
-    </div>
-  )
-}
 
 // ─── Hero ────────────────────────────────────────────────────────────────────
 
@@ -106,7 +90,7 @@ function Hero({ onEnterDocs }: { onEnterDocs: () => void }) {
 
       {/* Nav */}
       <nav className="relative z-10 mx-auto flex max-w-7xl items-center justify-between px-8 py-5">
-        <Logo light />
+        <BrandLogo imageClassName="h-10" />
         <Button type="outline" size="small" onClick={onEnterDocs}>
           Browse components
         </Button>
@@ -588,7 +572,7 @@ function Footer() {
       style={{ borderColor: "rgba(255,255,255,0.07)", backgroundColor: "#080808" }}
     >
       <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-4 sm:flex-row">
-        <Logo light />
+        <BrandLogo imageClassName="h-8" />
         <p className="text-xs text-white/30">
           Built with React · TypeScript · Tailwind CSS · Radix UI
         </p>
