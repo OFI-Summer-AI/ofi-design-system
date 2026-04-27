@@ -28,7 +28,7 @@ export const AlertDialogContent = React.forwardRef<
     <AlertDialogPrimitive.Content
       ref={ref}
       className={cn(
-        "fixed left-1/2 top-1/2 z-50 grid w-full max-w-lg -translate-x-1/2 -translate-y-1/2 gap-4 rounded-lg border border-border bg-card p-6 shadow-lg",
+        "fixed left-1/2 top-1/2 z-50 grid w-[calc(100%-2rem)] max-w-[30rem] -translate-x-1/2 -translate-y-1/2 gap-0 overflow-hidden rounded-[1rem] border border-white/10 bg-[#1a1a1a] text-foreground shadow-[0_24px_80px_rgba(0,0,0,0.55)]",
         className,
       )}
       {...props}
@@ -38,13 +38,21 @@ export const AlertDialogContent = React.forwardRef<
 AlertDialogContent.displayName = AlertDialogPrimitive.Content.displayName
 
 export function AlertDialogHeader({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) {
-  return <div className={cn("flex flex-col gap-1.5", className)} {...props} />
+  return (
+    <div
+      className={cn("flex flex-col gap-1 border-b border-white/10 px-4 py-3.5 text-left", className)}
+      {...props}
+    />
+  )
 }
 
 export function AlertDialogFooter({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) {
   return (
     <div
-      className={cn("flex flex-col-reverse gap-2 sm:flex-row sm:justify-end", className)}
+      className={cn(
+        "flex flex-col-reverse gap-2 border-t border-white/10 px-4 py-3.5 sm:flex-row sm:justify-end",
+        className,
+      )}
       {...props}
     />
   )
@@ -56,7 +64,7 @@ export const AlertDialogTitle = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <AlertDialogPrimitive.Title
     ref={ref}
-    className={cn("text-base font-semibold", className)}
+    className={cn("text-base font-medium leading-none tracking-[-0.02em] text-white", className)}
     {...props}
   />
 ))
@@ -68,7 +76,10 @@ export const AlertDialogDescription = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <AlertDialogPrimitive.Description
     ref={ref}
-    className={cn("text-sm text-foreground-muted", className)}
+    className={cn(
+      "px-4 py-3.5 text-sm leading-7 text-white/65 [&_code]:rounded-[0.5rem] [&_code]:border [&_code]:border-white/8 [&_code]:bg-white/6 [&_code]:px-2.5 [&_code]:py-1 [&_code]:font-mono [&_code]:text-[0.92em] [&_code]:font-medium [&_code]:text-white",
+      className,
+    )}
     {...props}
   />
 ))
@@ -80,7 +91,11 @@ export const AlertDialogAction = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <AlertDialogPrimitive.Action
     ref={ref}
-    className={cn(buttonVariants({ type: "primary", size: "default" }), className)}
+    className={cn(
+      buttonVariants({ type: "primary", size: "small" }),
+      "h-9 min-w-[96px] px-4 text-sm",
+      className,
+    )}
     {...props}
   />
 ))
@@ -92,7 +107,11 @@ export const AlertDialogCancel = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <AlertDialogPrimitive.Cancel
     ref={ref}
-    className={cn(buttonVariants({ type: "outline", size: "default" }), className)}
+    className={cn(
+      buttonVariants({ type: "outline", size: "small" }),
+      "h-9 min-w-[96px] px-4 text-sm",
+      className,
+    )}
     {...props}
   />
 ))

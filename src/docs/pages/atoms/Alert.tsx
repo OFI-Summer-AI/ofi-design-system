@@ -1,4 +1,4 @@
-import { Info, AlertTriangle, AlertCircle } from "lucide-react"
+import { Terminal } from "lucide-react"
 import PageHeader from "../../components/PageHeader"
 import ComponentPreview from "../../components/ComponentPreview"
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
@@ -8,38 +8,33 @@ export default function AlertDoc() {
     <>
       <PageHeader
         title="Alert"
-        description="An inline message used to surface information, warnings, or errors. For interactive callouts that the user should respond to, use Admonition instead."
+        description="Alert forms the core primitives for Admonition. Use the Admonition component unless you must deviate from our consistent patterns."
       />
+      <div className="mb-6 max-w-3xl text-sm text-foreground-muted">
+        <p>
+          Examples where Alert might make sense include:
+        </p>
+        <ul className="mt-3 list-disc space-y-1 pl-5">
+          <li>Bespoke icon requirement</li>
+          <li>Highly custom internal contents</li>
+        </ul>
+      </div>
       <ComponentPreview
         preview={
-          <div className="w-full max-w-md space-y-3">
-            <Alert>
-              <Info />
-              <AlertTitle>Heads up</AlertTitle>
-              <AlertDescription>
-                You can configure environment variables under project settings.
-              </AlertDescription>
-            </Alert>
-            <Alert variant="warning">
-              <AlertTriangle />
-              <AlertTitle>Approaching limit</AlertTitle>
-              <AlertDescription>
-                You've used 80% of this month's API quota.
-              </AlertDescription>
-            </Alert>
-            <Alert variant="destructive">
-              <AlertCircle />
-              <AlertTitle>Couldn't save</AlertTitle>
-              <AlertDescription>
-                The request timed out. Try again in a moment.
-              </AlertDescription>
-            </Alert>
-          </div>
+          <Alert className="w-full max-w-md">
+            <Terminal size={16} />
+            <AlertTitle>Heads up!</AlertTitle>
+            <AlertDescription>
+              You can also add components to your app using the CLI.
+            </AlertDescription>
+          </Alert>
         }
         code={`<Alert>
-  <Info />
-  <AlertTitle>Heads up</AlertTitle>
-  <AlertDescription>...</AlertDescription>
+  <Terminal className="h-4 w-4" />
+  <AlertTitle>Heads up!</AlertTitle>
+  <AlertDescription>
+    You can add components and dependencies to your app using the CLI.
+  </AlertDescription>
 </Alert>`}
       />
     </>
