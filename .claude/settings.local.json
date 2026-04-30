@@ -9,7 +9,8 @@
       "Bash(lsof -ti:5173)",
       "Bash(xargs kill *)",
       "Bash(npx tsc *)",
-      "WebFetch(domain:supabase.com)"
+      "WebFetch(domain:supabase.com)",
+      "Read(//tmp/**)"
     ]
   }
 }
