@@ -5,6 +5,7 @@ import { docSections, flatRoutes } from "../routes"
 import { useHashRoute } from "../router"
 import DocsSidebar from "./DocsSidebar"
 import DocsTOC from "./DocsTOC"
+import ThemeToggle from "./ThemeToggle"
 
 export default function DocsLayout() {
   const [slug] = useHashRoute()
@@ -28,6 +29,9 @@ export default function DocsLayout() {
           <a className="text-foreground" href="#/introduction">Docs</a>
           <a href="https://github.com" className="hover:text-foreground">GitHub</a>
         </nav>
+        <div className="ml-auto flex items-center">
+          <ThemeToggle />
+        </div>
       </header>
 
       <div className="grid grid-cols-[260px_minmax(0,1fr)_240px] gap-0">

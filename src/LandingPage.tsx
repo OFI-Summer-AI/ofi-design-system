@@ -273,7 +273,7 @@ function Hero({ onEnterDocs }: { onEnterDocs: () => void }) {
         <BrandLogo imageClassName="h-9" />
         <div className="flex items-center gap-4">
           <span className="hidden sm:block text-sm text-white/30 font-medium">
-            Open Source · MIT
+            Ofi Services
           </span>
           <Button type="outline" size="small" onClick={onEnterDocs}>
             Browse components
@@ -290,20 +290,20 @@ function Hero({ onEnterDocs }: { onEnterDocs: () => void }) {
 
         <h1 className="text-5xl sm:text-6xl lg:text-[72px] font-bold leading-[1.04] tracking-tight mb-6">
           <span className="bg-gradient-to-b from-white via-white/90 to-white/55 bg-clip-text text-transparent">
-            The design system
+            The frontend layer
             <br />
-            built for modern
+            for every Ofi
           </span>
           <br />
           <span className="bg-gradient-to-r from-primary via-amber-300 to-yellow-400 bg-clip-text text-transparent">
-            software products.
+            AI Agent.
           </span>
         </h1>
 
         <p className="text-lg sm:text-xl text-white/45 leading-relaxed max-w-2xl mx-auto mb-10">
-          A complete, accessible, and composable component library assembled on
-          top of shadcn/ui, Radix UI, and Tailwind CSS. Copy what you need and
-          make it yours.
+          A premium, on-brand component library for the agent builders at Ofi
+          Services. Ship dashboards, forms, and landing pages on day one — no
+          bespoke UI, no reinventing primitives.
         </p>
 
         <div className="flex flex-wrap justify-center gap-3">
@@ -316,7 +316,7 @@ function Hero({ onEnterDocs }: { onEnterDocs: () => void }) {
             Browse components
           </Button>
           <Button type="outline" size="large">
-            View on GitHub
+            Read the agent playbook
           </Button>
         </div>
       </div>
@@ -340,7 +340,7 @@ function StatsStrip() {
     { value: "15",  label: "Pattern components" },
     { value: "13",  label: "Custom icons" },
     { value: "3",   label: "Composable layers" },
-    { value: "100%",label: "Accessible" },
+    { value: "1",   label: "System for every agent" },
   ]
 
   return (
@@ -407,9 +407,10 @@ function About() {
             </SectionHeading>
           </div>
           <SectionSub>
-            OFI Design System is a React + TypeScript component library that
-            provides everything you need to build consistent, accessible product
-            interfaces — from low-level primitives to high-level patterns.
+            OfiUI is the in-house React + TypeScript design system that powers
+            the frontends of every AI Agent shipped by Ofi Services — from
+            low-level primitives to high-level patterns, all on-brand by
+            default.
           </SectionSub>
         </div>
 
@@ -452,16 +453,16 @@ function About() {
         <div className="mt-12 rounded-2xl border border-border bg-muted/40 p-8 grid grid-cols-1 gap-6 sm:grid-cols-3">
           {[
             {
-              heading: "Own your components",
-              body: "Components are copied into the repo, not imported from a package. No version conflicts, no breaking upgrades — you control the source.",
+              heading: "Brand consistency",
+              body: "Colors, typography, and tone aligned with Ofi Services' visual identity. Every agent surface looks like it came from the same team — because it did.",
             },
             {
-              heading: "Semantic design tokens",
-              body: "All colors are HSL CSS variables mapped to Tailwind utilities. Dark mode, brand theming, and overrides work with zero JavaScript.",
+              heading: "Speed for agent builders",
+              body: "Pre-built primitives and patterns mean agents ship with a polished frontend from day one. No bespoke UI, no reinventing components.",
             },
             {
-              heading: "Type-safe by default",
-              body: "CVA powers every variant-bearing component so all props are fully typed. Autocompletion and inline docs come out of the box.",
+              heading: "Quality by default",
+              body: "No more ad-hoc frontends. Every dashboard, form, and landing page looks and feels the same regardless of who built the agent.",
             },
           ].map(({ heading, body }) => (
             <div key={heading} className="space-y-2">
@@ -513,13 +514,14 @@ function Features() {
     <section className="py-28 px-8 bg-muted/30">
       <div className="mx-auto max-w-7xl">
         <div className="mb-16 max-w-2xl">
-          <SectionLabel>Why OFI Design</SectionLabel>
+          <SectionLabel>Why OfiUI</SectionLabel>
           <div className="mt-4 mb-5">
-            <SectionHeading>Built on solid foundations.</SectionHeading>
+            <SectionHeading>Built for agent builders.</SectionHeading>
           </div>
           <SectionSub>
-            Every decision made to help you ship faster without sacrificing
-            quality, consistency, or accessibility.
+            Every decision tuned so an agent builder can ship a polished,
+            on-brand frontend faster — without sacrificing quality,
+            consistency, or accessibility.
           </SectionSub>
         </div>
 
@@ -1063,14 +1065,15 @@ function CTASection({ onEnterDocs }: { onEnterDocs: () => void }) {
       <div className="relative z-10 mx-auto max-w-3xl text-center space-y-8">
         <div className="space-y-4">
           <p className="text-xs font-semibold uppercase tracking-[0.18em] text-primary">
-            Open source · MIT License
+            Internal · Ofi Services
           </p>
           <h2 className="text-4xl sm:text-5xl font-bold tracking-tight text-white leading-[1.1]">
-            Start building today.
+            Ship your next agent today.
           </h2>
           <p className="text-lg text-white/40 leading-relaxed max-w-lg mx-auto">
-            Free and open source. Copy the components you need, adapt them to
-            your brand, and ship with confidence.
+            Pull from the system, drop in the patterns, and let the design
+            system handle the polish. You focus on the agent — we handle the
+            frontend.
           </p>
         </div>
 
@@ -1079,13 +1082,13 @@ function CTASection({ onEnterDocs }: { onEnterDocs: () => void }) {
             Browse components
           </Button>
           <Button type="outline" size="large">
-            View on GitHub
+            Read the agent playbook
           </Button>
         </div>
 
         <div className="flex flex-wrap justify-center items-center gap-6 pt-2">
           {[
-            { icon: Package, label: "npm install" },
+            { icon: Package, label: "On-brand by default" },
             { icon: Code2,   label: "TypeScript first" },
             { icon: Shield,  label: "WAI-ARIA" },
             { icon: Moon,    label: "Dark mode" },
@@ -1107,7 +1110,7 @@ function Footer() {
   const links = [
     { group: "System",  items: ["Components", "Patterns", "Icons", "Theming"] },
     { group: "Stack",   items: ["React 18", "TypeScript 5", "Tailwind CSS 3", "Radix UI"] },
-    { group: "Project", items: ["GitHub", "MIT License", "Changelog", "Contributing"] },
+    { group: "Ofi",     items: ["Agent playbook", "Process mining", "Automation services", "Contributing"] },
   ]
 
   return (
@@ -1120,10 +1123,10 @@ function Footer() {
           <div className="space-y-4">
             <BrandLogo imageClassName="h-8" />
             <p className="text-sm text-white/30 leading-relaxed max-w-xs">
-              A React + TypeScript design system built on top of shadcn/ui,
-              Radix UI, and Tailwind CSS.
+              The in-house design system that powers the frontend layer of
+              every AI Agent shipped by Ofi Services.
             </p>
-            <p className="text-xs text-white/20">MIT License · Open Source</p>
+            <p className="text-xs text-white/20">Internal · Ofi Services</p>
           </div>
 
           {links.map(({ group, items }) => (
@@ -1151,7 +1154,7 @@ function Footer() {
             Built with React · TypeScript · Tailwind CSS · Radix UI
           </p>
           <p className="text-xs text-white/20">
-            © {new Date().getFullYear()} OFI Design System
+            © {new Date().getFullYear()} Ofi Services
           </p>
         </div>
       </div>
