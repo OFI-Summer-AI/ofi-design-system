@@ -6,7 +6,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 # OFI Design System
 
-A React + TypeScript design system built on top of [shadcn/ui](https://ui.shadcn.com), [Radix UI](https://www.radix-ui.com), and [Tailwind CSS](https://tailwindcss.com). The repo doubles as a living showcase: `src/App.tsx` renders every primitive and pattern as documentation, and `src/LandingPage.tsx` demonstrates a full marketing layout assembled from the same building blocks.
+A React + TypeScript design system built on top of [shadcn/ui](https://ui.shadcn.com), [Radix UI](https://www.radix-ui.com), and [Tailwind CSS](https://tailwindcss.com), **inspired by the [Supabase Design System](https://ui.supabase.com)**. The repo doubles as a living showcase: `src/App.tsx` renders every primitive and pattern as documentation, and `src/LandingPage.tsx` demonstrates a full marketing layout assembled from the same building blocks.
 
 This document is the canonical reference for installing, configuring, extending, and consuming the system.
 

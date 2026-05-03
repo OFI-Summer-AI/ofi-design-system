@@ -580,9 +580,9 @@ function GettingStarted() {
                 </h2>
               </div>
               <p className="text-base leading-relaxed text-white/45 max-w-md">
-                Clone the repo, install dependencies, and the dev server is
-                ready. Every component is local source — copy, rename, and
-                adapt without constraints.
+                Install the package, wire up the Tailwind preset, and import
+                the stylesheet. Every component is ready to use — no cloning,
+                no configuration overhead.
               </p>
             </div>
 
@@ -590,18 +590,18 @@ function GettingStarted() {
               {[
                 {
                   step: "01",
-                  title: "Install dependencies",
-                  detail: "npm install sets up Vite, Tailwind, Radix UI, and the entire component stack.",
+                  title: "Install the package",
+                  detail: "npm install @daivymoralesofi/ofiui adds the full component library to your project.",
                 },
                 {
                   step: "02",
-                  title: "Start the dev server",
-                  detail: "npm run dev launches the component showcase at localhost:5173 with full HMR.",
+                  title: "Add the Tailwind preset",
+                  detail: "Extend your tailwind.config.js with the OfiUI preset to pull in all design tokens.",
                 },
                 {
                   step: "03",
-                  title: "Import and build",
-                  detail: "Import components via the @/ alias. Run npm run build to type-check and bundle.",
+                  title: "Import and ship",
+                  detail: "Import the stylesheet once, then use any component directly from @daivymoralesofi/ofiui.",
                 },
               ].map(({ step, title, detail }) => (
                 <div key={step} className="flex gap-5">
@@ -620,30 +620,22 @@ function GettingStarted() {
           <div className="space-y-3">
             <CodeBlock label="terminal" useTerminal>
               <span className="text-white/25">$</span>
-              <span className="text-white/70"> git clone</span>
-              <span className="text-primary/70"> https://github.com/…/ofi-design-system</span>
-              {"\n"}
-              <span className="text-white/25">$</span>
               <span className="text-white/70"> npm install</span>
+              <span className="text-primary/70"> @daivymoralesofi/ofiui</span>
               {"\n"}
               <span className="text-white/25">$</span>
-              <span className="text-white/70"> npm run dev</span>
+              <span className="text-white/70"> npm install -D tailwindcss postcss autoprefixer</span>
               {"\n\n"}
-              <span className="text-white/20">{"  "}VITE v5 ready in 342ms</span>
+              <span className="text-white/20">{"  "}added 142 packages in 3.2s</span>
               {"\n"}
-              <span className="text-white/20">{"  "}➜ Local: http://localhost:5173/</span>
+              <span className="text-white/20">{"  "}✓ @daivymoralesofi/ofiui@0.0.1</span>
             </CodeBlock>
 
             <CodeBlock label="button.usage.tsx">
               <span className="text-primary/60">import</span>
-              <span className="text-white/65"> {"{ Button }"} </span>
+              <span className="text-white/65"> {"{ Button, Badge }"} </span>
               <span className="text-primary/60">from</span>
-              <span className="text-amber-300/60"> "@/components/ui/button"</span>
-              {"\n"}
-              <span className="text-primary/60">import</span>
-              <span className="text-white/65"> {"{ Badge }"} </span>
-              <span className="text-primary/60">from</span>
-              <span className="text-amber-300/60"> "@/components/ui/badge"</span>
+              <span className="text-amber-300/60"> "@daivymoralesofi/ofiui"</span>
               {"\n\n"}
               <span className="text-primary/60">export function</span>
               <span className="text-white/80"> MyPage</span>
@@ -1044,6 +1036,54 @@ function PatternsSection({ onEnterDocs }: { onEnterDocs: () => void }) {
   )
 }
 
+// ─── Author ───────────────────────────────────────────────────────────────────
+
+function AuthorSection() {
+  return (
+    <section className="py-28 px-8 bg-background">
+      <div className="mx-auto max-w-7xl">
+        <div className="max-w-2xl mx-auto text-center space-y-10">
+          <div>
+            <SectionLabel>Built by</SectionLabel>
+            <div className="mt-4">
+              <SectionHeading>Meet the author.</SectionHeading>
+            </div>
+          </div>
+
+          <div className="rounded-2xl border border-border bg-card p-8 flex flex-col sm:flex-row items-center gap-7 text-left">
+            <img
+              src="/daivy.png"
+              alt="Daivy Morales"
+              className="h-24 w-24 rounded-full object-cover shrink-0 ring-2 ring-primary/20"
+            />
+            <div className="space-y-3 min-w-0">
+              <div>
+                <h3 className="text-xl font-bold tracking-tight">Daivy Morales</h3>
+                <p className="text-sm text-muted-foreground mt-0.5">
+                  AI &amp; Innovation Intern · Ofi Services · Latin America
+                </p>
+              </div>
+              <p className="text-sm leading-relaxed text-muted-foreground">
+                Daivy is part of the Ofi Services tech team in Latam, where he
+                works on AI Agents and the internal tooling that powers them.
+                OfiUI started as a personal initiative to give every agent a
+                consistent, premium frontend — and grew into the system you're
+                looking at now.
+              </p>
+              <a
+                href="mailto:d.morales@ofiservices.com"
+                className="inline-flex items-center gap-1.5 text-sm font-medium text-primary hover:text-primary/80 transition-colors"
+              >
+                d.morales@ofiservices.com
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  )
+}
+
 // ─── CTA ─────────────────────────────────────────────────────────────────────
 
 function CTASection({ onEnterDocs }: { onEnterDocs: () => void }) {
@@ -1154,7 +1194,14 @@ function Footer() {
             Built with React · TypeScript · Tailwind CSS · Radix UI
           </p>
           <p className="text-xs text-white/20">
-            © {new Date().getFullYear()} Ofi Services
+            Designed &amp; built by{" "}
+            <a
+              href="mailto:d.morales@ofiservices.com"
+              className="text-white/35 hover:text-white/55 transition-colors"
+            >
+              Daivy Morales
+            </a>
+            {" "}· © {new Date().getFullYear()} Ofi Services
           </p>
         </div>
       </div>
@@ -1175,6 +1222,7 @@ export function LandingPage({ onEnterDocs }: { onEnterDocs: () => void }) {
       <ComponentShowcase />
       <ThemingSection />
       <PatternsSection onEnterDocs={onEnterDocs} />
+      <AuthorSection />
       <CTASection onEnterDocs={onEnterDocs} />
       <Footer />
     </div>

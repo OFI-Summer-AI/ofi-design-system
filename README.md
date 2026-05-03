@@ -4,203 +4,13 @@
 
 # OfiUI
 
-OfiUI is a React-based design system and docs application for OFI product surfaces. It combines reusable UI primitives, higher-level product patterns, and written guidance in a single repository.
+A React component library for [Ofi Services](https://ofiservices.com) — built on [shadcn/ui](https://ui.shadcn.com), [Radix UI](https://www.radix-ui.com), and [Tailwind CSS](https://tailwindcss.com). Gives every Ofi AI agent builder a consistent, premium frontend without writing bespoke UI code.
 
-This project is not just a component folder. It is a working docs experience with:
+[![npm](https://img.shields.io/npm/v/@daivymoralesofi/ofiui)](https://www.npmjs.com/package/@daivymoralesofi/ofiui)
 
-- a landing page
-- a navigable docs app
-- component demos with preview/code tabs
-- product-oriented UI patterns
-- written guidance for design and implementation decisions
+---
 
-## Table of contents
-
-- [Overview](#overview)
-- [What the repository contains](#what-the-repository-contains)
-- [Tech stack](#tech-stack)
-- [Application flow](#application-flow)
-- [Project structure](#project-structure)
-- [Docs structure](#docs-structure)
-- [Use in a client project](#use-in-a-client-project)
-- [Local development (this repo)](#local-development-this-repo)
-- [Scripts](#scripts)
-- [Design system conventions](#design-system-conventions)
-- [How to add things](#how-to-add-things)
-- [Brand assets](#brand-assets)
-- [Current known issue](#current-known-issue)
-- [Roadmap ideas](#roadmap-ideas)
-
-## Overview
-
-OfiUI is built to document and showcase a system of UI primitives and reusable patterns for internal or product-facing interfaces. The repository includes both the implementation and the documentation layer that explains how to use it.
-
-The docs are organized around:
-
-- base components such as button, input, select, table, and switch
-- fragments and composite building blocks
-- product patterns such as charts, forms, layout, tables, and empty states
-- guidance pages for accessibility, color usage, copywriting, icons, typography, theming, and Tailwind usage
-
-## What the repository contains
-
-At a high level, this repo includes:
-
-- `src/components/ui`
-  Reusable UI primitives built with React, Tailwind CSS, and Radix UI.
-
-- `src/components/ui-patterns`
-  Higher-level patterns and feature-oriented building blocks such as charts, admonitions, multi-select, metric cards, and form array helpers.
-
-- `src/components/icons`
-  Custom icon utilities and icon definitions.
-
-- `src/docs`
-  The docs application, including layout, routing, page components, previews, code blocks, and section helpers.
-
-- `src/LandingPage.tsx`
-  The landing experience shown before entering the docs.
-
-- `src/App.tsx`
-  The top-level application flow that starts on the landing page and then transitions into the docs app.
-
-## Tech stack
-
-- React 18
-- TypeScript
-- Vite
-- Tailwind CSS
-- Radix UI primitives
-- `class-variance-authority`
-- `tailwind-merge`
-- Recharts
-- React Hook Form
-- Zod
-
-## Application flow
-
-The app currently works in two stages:
-
-1. The user lands on the landing page.
-2. From there, the user enters the docs application.
-
-This is wired through:
-
-- [src/main.tsx](/Users/daivymorales/Documents/GitHub/ofi-design-system/src/main.tsx:1)
-  Bootstraps the React app and wraps it in dark mode.
-
-- [src/App.tsx](/Users/daivymorales/Documents/GitHub/ofi-design-system/src/App.tsx:1)
-  Controls the landing-page-first flow and renders `DocsApp` after the user enters.
-
-- [src/docs/DocsApp.tsx](/Users/daivymorales/Documents/GitHub/ofi-design-system/src/docs/DocsApp.tsx:1)
-  Loads the docs layout.
-
-- [src/docs/components/DocsLayout.tsx](/Users/daivymorales/Documents/GitHub/ofi-design-system/src/docs/components/DocsLayout.tsx:1)
-  Provides the docs shell with header, sidebar, content area, and table of contents.
-
-## Project structure
-
-```text
-.
-├── public/
-│   ├── ofi-design-system.svg
-│   └── ofi-design-system.png
-├── src/
-│   ├── components/
-│   │   ├── BrandLogo.tsx
-│   │   ├── icons/
-│   │   ├── ui/
-│   │   └── ui-patterns/
-│   ├── docs/
-│   │   ├── components/
-│   │   ├── pages/
-│   │   │   ├── atoms/
-│   │   │   ├── fragments/
-│   │   │   ├── getting-started/
-│   │   │   └── patterns/
-│   │   ├── DocsApp.tsx
-│   │   ├── router.tsx
-│   │   └── routes.ts
-│   ├── App.tsx
-│   ├── LandingPage.tsx
-│   ├── index.css
-│   └── main.tsx
-├── index.html
-├── package.json
-└── README.md
-```
-
-## Docs structure
-
-The docs are registered in [src/docs/routes.ts](/Users/daivymorales/Documents/GitHub/ofi-design-system/src/docs/routes.ts:1).
-
-They are grouped into four sections:
-
-### Getting started
-
-These pages explain system-level rules and guidance:
-
-- Introduction
-- Accessibility
-- Color usage
-- Copywriting
-- Icons
-- Tailwind classes
-- Theming
-- Typography
-
-### UI patterns
-
-These pages cover product-level guidance and reusable patterns:
-
-- Introduction
-- Charts
-- Empty states
-- Forms
-- Layout
-- Modality
-- Navigation
-- Tables
-
-### Fragments
-
-These are more focused composite pieces:
-
-- Admonition
-- Multi select
-- Form item layout
-- Key/Value field array
-- Single value field array
-- Logs bar chart
-- Metric card
-
-### Atoms
-
-These are the base components:
-
-- Avatar
-- Badge
-- Button
-- Calendar
-- Card
-- Checkbox
-- Input
-- Label
-- Popover
-- Progress
-- Radio group
-- Select
-- Separator
-- Sheet
-- Switch
-- Table
-- Textarea
-
-## Use in a client project
-
-OfiUI is published to npm as [`@daivymoralesofi/ofiui`](https://www.npmjs.com/package/@daivymoralesofi/ofiui). Follow the steps below to consume it from any React + Tailwind project (Vite, Next.js, Remix, etc.).
-
-### Step 1 — Install the package
+## Installation
 
 ```bash
 npm install @daivymoralesofi/ofiui
@@ -210,53 +20,54 @@ pnpm add @daivymoralesofi/ofiui
 yarn add @daivymoralesofi/ofiui
 ```
 
-`react` and `react-dom` are peer dependencies — your app must already have them (`^18` or `^19`).
+`react` and `react-dom` are peer dependencies (`^18` or `^19`).
 
-### Step 2 — Install Tailwind CSS
+---
 
-OfiUI is styled with Tailwind. If your project does not already have Tailwind set up, install it first:
+## Setup
+
+### 1 — Tailwind CSS
+
+OfiUI requires Tailwind CSS. If your project doesn't have it yet:
 
 ```bash
 npm install -D tailwindcss postcss autoprefixer
 npx tailwindcss init -p
 ```
 
-### Step 3 — Wire up the Tailwind preset
+### 2 — Tailwind preset
 
-OfiUI ships a Tailwind preset that contains the design tokens, color scales, container settings, and plugins the components rely on. Extend your `tailwind.config.js` with it:
+OfiUI ships a preset that contains the design tokens, color scales, and plugins the components rely on. Extend your `tailwind.config.js`:
 
 ```js
 // tailwind.config.js
 import ofiuiPreset from "@daivymoralesofi/ofiui/tailwind.preset"
 
-/** @type {import('tailwindcss').Config} */
 export default {
   presets: [ofiuiPreset],
   darkMode: ["class"],
   content: [
     "./index.html",
     "./src/**/*.{ts,tsx}",
-    // IMPORTANT: include the published library so its class names are not purged
+    // Required — prevents Tailwind from purging OfiUI's class names
     "./node_modules/@daivymoralesofi/ofiui/dist/**/*.{js,mjs}",
   ],
 }
 ```
 
-The `content` entry that points to `node_modules/@daivymoralesofi/ofiui/dist/**` is required — without it Tailwind will tree-shake the classes used by OfiUI components and they will render unstyled.
+### 3 — Stylesheet
 
-### Step 4 — Import the stylesheet
-
-Import the prebuilt OfiUI stylesheet **once** at the entry point of your app (typically `main.tsx`, `_app.tsx`, or `layout.tsx`):
+Import the prebuilt stylesheet once at your app entry point (`main.tsx`, `_app.tsx`, `layout.tsx`, etc.) **before** your own global styles:
 
 ```ts
 import "@daivymoralesofi/ofiui/styles.css"
 ```
 
-This file contains the CSS-variable theme tokens (`--background`, `--foreground`, `--primary`, `--radius`, …) for both light and dark modes. You should import it **before** your own global stylesheet so your overrides win.
+This file contains the CSS-variable theme tokens (`--background`, `--foreground`, `--primary`, `--radius`, …) for both light and dark mode.
 
-### Step 5 — (Optional) Enable dark mode
+### 4 — Dark mode (optional)
 
-Dark mode is class-based. Add the `dark` class to `<html>` or any ancestor to flip every semantic token:
+Dark mode is class-based. Add the `dark` class to `<html>` or any ancestor:
 
 ```html
 <html class="dark">
@@ -268,7 +79,9 @@ Or toggle it dynamically:
 document.documentElement.classList.toggle("dark")
 ```
 
-### Step 6 — Use a component
+---
+
+## Usage
 
 ```tsx
 import { Button } from "@daivymoralesofi/ofiui"
@@ -283,11 +96,9 @@ export function CreateButton() {
 }
 ```
 
-All primitives, patterns, and icons are exported from the package root. If your editor supports it, autocomplete from `@daivymoralesofi/ofiui` to discover what's available.
+All primitives, patterns, and icons are exported from the package root. Use autocomplete from `@daivymoralesofi/ofiui` to discover what's available.
 
-### Step 7 — (Optional) Use the `cn()` helper
-
-The same class-merging helper used internally is also exported, so consumers can compose Tailwind classes the same way:
+The `cn()` class-merging helper is also exported:
 
 ```ts
 import { cn } from "@daivymoralesofi/ofiui"
@@ -295,160 +106,116 @@ import { cn } from "@daivymoralesofi/ofiui"
 <div className={cn("px-3 py-2", isActive && "bg-accent", className)} />
 ```
 
-### Troubleshooting
+---
 
-- **Components render without styles** → make sure you imported `@daivymoralesofi/ofiui/styles.css` *and* added `./node_modules/@daivymoralesofi/ofiui/dist/**/*.{js,mjs}` to your Tailwind `content` array.
-- **Dark colors don't apply** → confirm the `dark` class is on `<html>` and that your `tailwind.config.js` has `darkMode: ["class"]`.
-- **TypeScript can't find the module** → ensure `moduleResolution` is `"bundler"` or `"node16"` in `tsconfig.json` so it can resolve the package's `exports` map.
+## What's included
+
+### Primitives (`ui/`)
+
+Vendored shadcn/ui components built on Radix UI — Avatar, Badge, Button, Calendar, Card, Checkbox, Input, Label, Popover, Progress, Radio Group, Select, Separator, Sheet, Switch, Table, Textarea, and more.
+
+### Patterns (`ui-patterns/`)
+
+Higher-level compositions:
+
+- **Charts** — compound-component chart toolkit on top of Recharts (`ChartCard`, `ChartLine`, `ChartBar`, `ChartMetric`, `LogsBarChart`, …)
+- **Forms** — React Hook Form + Zod field arrays and item layouts
+- **Admonition** — callout/banner with semantic variants
+- **Multi-select** — Radix Popover + Command-style multi-selector
+- **Metric card** — stat display with trend indicators
+- **Data inputs** — higher-order form inputs
+
+### Icons (`icons/`)
+
+Custom SVG icons via the `createIcon` factory, plus `lucide-react` for generic glyphs.
 
 ---
 
-## Local development (this repo)
+## Button API
 
-The sections below are for contributors working on OfiUI itself.
+`Button` is the most expressive component in the system.
+
+| Prop    | Values | Default |
+|---------|--------|---------|
+| `type`  | `primary` `default` `secondary` `outline` `dashed` `link` `text` `danger` `warning` | `primary` |
+| `size`  | `tiny` `small` `default` `medium` `large` `huge` | `default` |
+| `block` | `true` / `false` | `false` |
+
+Additional props: `icon`, `iconRight`, `loading`, `loadingCentered`, `asChild`, `htmlType`.
+
+```tsx
+<Button type="primary" size="medium" icon={<Plus />}>Create</Button>
+<Button type="outline" loading>Saving…</Button>
+<Button asChild type="link"><a href="/docs">Read the docs</a></Button>
+```
+
+---
+
+## Troubleshooting
+
+**Components render without styles** — make sure you imported `@daivymoralesofi/ofiui/styles.css` and added `./node_modules/@daivymoralesofi/ofiui/dist/**/*.{js,mjs}` to your Tailwind `content` array.
+
+**Dark colors don't apply** — confirm the `dark` class is on `<html>` and that `tailwind.config.js` has `darkMode: ["class"]`.
+
+**TypeScript can't find the module** — ensure `moduleResolution` is `"bundler"` or `"node16"` in `tsconfig.json` so it resolves the package `exports` map.
+
+---
+
+## Local development
 
 ### Prerequisites
 
-- Node.js 18 or newer
+- Node.js 18+
 - npm
 
-### Install dependencies
+### Install
 
 ```bash
 npm install
 ```
 
-### Start the development server
+### Scripts
 
-```bash
-npm run dev
-```
+| Command | What it does |
+|---------|-------------|
+| `npm run dev` | Starts the Vite dev server with HMR |
+| `npm run build` | Type-checks and builds the docs site |
+| `npm run build:lib` | Builds the publishable library bundle to `dist/` |
+| `npm run preview` | Serves the production build locally |
 
-Vite will print the local URL, typically:
+### Publish
+
+`prepublishOnly` runs `build:lib` automatically. The published files are `dist/`, `tailwind.preset.js`, and `README.md`.
+
+### Project structure
 
 ```text
-http://localhost:5173
+src/
+├── components/
+│   ├── ui/              # Primitives (vendored shadcn/ui)
+│   ├── ui-patterns/     # Compositions
+│   └── icons/           # Custom SVG icons
+├── docs/                # Living docs app (dev reference)
+├── lib/
+│   ├── utils.ts         # cn() helper
+│   └── format.ts
+├── App.tsx              # Docs app entry
+├── LandingPage.tsx      # Marketing page
+└── index.css            # Tailwind layers + CSS-variable tokens
 ```
 
-### Build for production
+Path alias `@/*` → `src/*`. Always import via `@/...`.
 
-```bash
-npm run build
-```
+### Adding a new component
 
-### Build the publishable library
+1. Pick the layer: primitive (`ui/`), composition (`ui-patterns/`), or icon (`icons/`).
+2. For shadcn primitives: `npx shadcn@latest add <name>`, then align with system conventions.
+3. Use CVA for variant-driven styling; reference colors via CSS-variable utilities (`bg-primary`, `text-foreground`).
+4. Forward `ref`, set `displayName`, spread `className` last through `cn()`.
+5. Add a usage example to the docs app and run `npm run build:lib` to confirm.
 
-```bash
-npm run build:lib
-```
+---
 
-This runs the library Vite config and emits `dist/index.mjs`, `dist/index.cjs`, `dist/index.d.ts`, and `dist/styles.css` — the artifacts shipped to npm.
+## License
 
-### Preview the production build
-
-```bash
-npm run preview
-```
-
-## Scripts
-
-Defined in [package.json](/Users/daivymorales/Documents/GitHub/ofi-design-system/package.json:1):
-
-- `npm run dev`
-  Starts the Vite dev server.
-
-- `npm run build`
-  Runs TypeScript project builds and then Vite production build (the docs site).
-
-- `npm run build:lib`
-  Builds the publishable library bundle and stylesheet under `dist/`.
-
-- `npm run preview`
-  Serves the production build locally.
-
-## Design system conventions
-
-### Styling
-
-- Global theme tokens live in [src/index.css](/Users/daivymorales/Documents/GitHub/ofi-design-system/src/index.css:1).
-- Tailwind utilities are the primary styling layer.
-- Shared class merging goes through `cn()` in [src/lib/utils.ts](/Users/daivymorales/Documents/GitHub/ofi-design-system/src/lib/utils.ts:1).
-- Component variants are generally handled with `class-variance-authority`.
-
-### Theme direction
-
-- The app is currently rendered in dark mode by default.
-- Scrollbars, overlays, and docs chrome have been styled to match the dark theme.
-- The docs and landing page both assume the same visual language.
-
-### Documentation components
-
-The docs pages reuse a small set of helper components:
-
-- `PageHeader`
-- `ComponentPreview`
-- `CodeBlock`
-- `Section`
-- `PropTable`
-
-These live under [src/docs/components](/Users/daivymorales/Documents/GitHub/ofi-design-system/src/docs/components).
-
-## How to add things
-
-### Add a new primitive component
-
-1. Create the component in `src/components/ui/`
-2. Follow the patterns used by existing primitives
-3. Add a docs page under `src/docs/pages/atoms/`
-4. Register the docs route in `src/docs/routes.ts`
-
-### Add a new pattern or fragment
-
-1. Create the implementation in `src/components/ui-patterns/`
-2. Add a docs page under either:
-   `src/docs/pages/patterns/` or `src/docs/pages/fragments/`
-3. Register the route in `src/docs/routes.ts`
-
-### Add or update docs content
-
-1. Edit the relevant page in `src/docs/pages/...`
-2. Reuse docs helpers instead of writing page-level layout from scratch
-3. Keep examples realistic and aligned with the design system voice
-
-## Brand assets
-
-The shared logo component is [src/components/BrandLogo.tsx](/Users/daivymorales/Documents/GitHub/ofi-design-system/src/components/BrandLogo.tsx:1).
-
-Current branding setup:
-
-- `public/ofi-design-system.svg`
-  Primary logo used across the app.
-
-- `public/ofi-design-system.png`
-  Secondary asset kept in the repo.
-
-The SVG mark is now used in:
-
-- the landing page
-- the docs header
-- the app shell
-- the favicon
-- the README
-
-## Current known issue
-
-`npm run build` currently fails because of an existing TypeScript issue in:
-
-[src/components/ui-patterns/page-layout.tsx](/Users/daivymorales/Documents/GitHub/ofi-design-system/src/components/ui-patterns/page-layout.tsx:42)
-
-The specific problem is that `PageSectionProps.title` conflicts with the native `title` attribute from `HTMLAttributes<HTMLDivElement>`.
-
-This does not prevent local development, but it does block a clean production build until fixed.
-
-## Roadmap ideas
-
-- Fix the `page-layout` TypeScript conflict so production builds pass
-- Add linting and formatting scripts
-- Add test coverage for shared primitives and patterns
-- Turn the docs into a more package-oriented documentation site if external distribution is planned
-- Split the repo into a publishable library package and a docs app if the system is going to be consumed outside this repository
+Private — Ofi Services internal use.
