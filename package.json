@@ -1,6 +1,6 @@
 {
   "name": "@daivymoralesofi/ofiui",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "OFI Design System — React + Tailwind components for Ofi Services AI Agents. Inspired by the Supabase Design System.",
   "type": "module",
   "sideEffects": [
