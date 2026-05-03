@@ -43,18 +43,18 @@ export default function DocsTOC() {
   if (headings.length === 0) return null
 
   return (
-    <nav className="flex flex-col gap-2 text-sm">
-      <div className="text-xs font-semibold uppercase tracking-wide text-foreground-muted">
-        On this page
-      </div>
-      <ul className="flex flex-col gap-1">
+    <div className="space-y-2 text-sm">
+      <p className="font-medium text-foreground-light">On This Page</p>
+      <ul className="m-0 list-none">
         {headings.map((h) => (
-          <li key={h.id} className={cn(h.level === 3 && "pl-3")}>
+          <li key={h.id} className={cn("mt-0 pt-2", h.level === 3 && "pl-4")}>
             <a
               href={`#${h.id}`}
               className={cn(
-                "block py-0.5 text-foreground-muted transition-colors hover:text-foreground",
-                active === h.id && "text-foreground",
+                "inline-block no-underline transition-colors hover:text-foreground",
+                active === h.id
+                  ? "font-medium text-foreground"
+                  : "text-foreground-muted",
               )}
             >
               {h.text}
@@ -62,6 +62,6 @@ export default function DocsTOC() {
           </li>
         ))}
       </ul>
-    </nav>
+    </div>
   )
 }

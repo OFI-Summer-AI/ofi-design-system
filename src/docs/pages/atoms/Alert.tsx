@@ -1,6 +1,7 @@
 import { Terminal } from "lucide-react"
 import PageHeader from "../../components/PageHeader"
 import ComponentPreview from "../../components/ComponentPreview"
+import ImportBlock from "../../components/ImportBlock"
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
 
 export default function AlertDoc() {
@@ -10,6 +11,7 @@ export default function AlertDoc() {
         title="Alert"
         description="Alert forms the core primitives for Admonition. Use the Admonition component unless you must deviate from our consistent patterns."
       />
+      <ImportBlock imports={["Alert", "AlertDescription", "AlertTitle"]} />
       <div className="mb-6 max-w-3xl text-sm text-foreground-muted">
         <p>
           Examples where Alert might make sense include:

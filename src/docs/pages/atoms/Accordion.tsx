@@ -1,5 +1,6 @@
 import PageHeader from "../../components/PageHeader"
 import ComponentPreview from "../../components/ComponentPreview"
+import ImportBlock from "../../components/ImportBlock"
 import {
   Accordion,
   AccordionContent,
@@ -14,6 +15,7 @@ export default function AccordionDoc() {
         title="Accordion"
         description="A vertical stack of expandable sections. Best for FAQ-style content or settings panels where most rows are collapsed by default."
       />
+      <ImportBlock imports={["Accordion", "AccordionContent", "AccordionItem", "AccordionTrigger"]} />
       <ComponentPreview
         preview={
           <Accordion type="single" collapsible className="w-full max-w-md">

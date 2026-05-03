@@ -1,5 +1,6 @@
 import PageHeader from "../../components/PageHeader"
 import ComponentPreview from "../../components/ComponentPreview"
+import ImportBlock from "../../components/ImportBlock"
 import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/components/ui/hover-card"
 
 export default function HoverCardDoc() {
@@ -9,6 +10,7 @@ export default function HoverCardDoc() {
         title="Hover card"
         description="A non-modal popup shown on hover. Use to preview rich detail (user profile, link metadata) without forcing the user to navigate."
       />
+      <ImportBlock imports={["HoverCard", "HoverCardContent", "HoverCardTrigger"]} />
       <ComponentPreview
         preview={
           <HoverCard>

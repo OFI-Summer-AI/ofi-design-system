@@ -16,6 +16,7 @@ import { Label } from "@/components/ui/label"
 import { Toaster, toast } from "@/components/ui/sonner"
 import CodeBlock from "../../components/CodeBlock"
 import ComponentPreview from "../../components/ComponentPreview"
+import ImportBlock from "../../components/ImportBlock"
 import PageHeader from "../../components/PageHeader"
 import { H2, H3, InlineCode, P } from "../../components/Section"
 
@@ -115,6 +116,7 @@ export default function InputDoc() {
         title="Input"
         description="Displays a form input field or a component that looks like an input field."
       />
+      <ImportBlock imports={["Button", "Form", "FormControl", "FormDescription", "FormField", "FormItem", "FormLabel", "FormMessage", "Input", "Label", "Toaster", "toast"]} />
 
       <ComponentPreview
         preview={<div className="w-full max-w-sm"><InputDemo /></div>}

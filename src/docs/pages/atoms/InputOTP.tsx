@@ -22,6 +22,7 @@ import {
 import { Toaster, toast } from "@/components/ui/sonner"
 import CodeBlock from "../../components/CodeBlock"
 import ComponentPreview from "../../components/ComponentPreview"
+import ImportBlock from "../../components/ImportBlock"
 import PageHeader from "../../components/PageHeader"
 import { H2, H3, InlineCode, P } from "../../components/Section"
 
@@ -165,6 +166,7 @@ export default function InputOTPDoc() {
         title="Input OTP"
         description="Accessible one-time password component with copy paste functionality."
       />
+      <ImportBlock imports={["Button", "Form", "FormControl", "FormDescription", "FormField", "FormItem", "FormLabel", "FormMessage", "InputOTP", "InputOTPGroup", "InputOTPSeparator", "InputOTPSlot", "Toaster", "toast"]} />
 
       <ComponentPreview
         preview={<InputOTPDemo />}

@@ -87,23 +87,27 @@ export default function CodeBlock({
   return (
     <div
       className={cn(
-        "relative overflow-hidden rounded-md border bg-card",
+        "group/code-block relative overflow-hidden rounded-md border border-border bg-studio",
         className,
       )}
     >
-      <div className="flex items-center justify-between border-b bg-muted/40 px-3 py-1.5 text-xs text-muted-foreground">
-        <span className="font-medium uppercase tracking-wide text-foreground">{language}</span>
-        <button
-          type="button"
-          onClick={onCopy}
-          className="inline-flex h-6 items-center gap-1 rounded px-2 text-xs transition-colors hover:bg-accent hover:text-accent-foreground"
-        >
-          {copied ? <Check className="h-3 w-3" /> : <Copy className="h-3 w-3" />}
-          {copied ? "Copied" : "Copy"}
-        </button>
-      </div>
-      <pre className="overflow-x-auto px-4 py-3 text-[13px] leading-relaxed text-foreground">
-        <code>{renderHighlightedCode(code)}</code>
+      <button
+        type="button"
+        onClick={onCopy}
+        aria-label="Copy code"
+        className={cn(
+          "absolute right-3 top-3 z-10 inline-flex h-6 w-6 items-center justify-center rounded border border-border bg-surface-100 text-foreground-muted",
+          "opacity-0 transition-opacity hover:bg-surface-200 hover:text-foreground group-hover/code-block:opacity-100 focus-visible:opacity-100",
+        )}
+      >
+        {copied ? (
+          <Check className="h-3 w-3 text-brand-600" />
+        ) : (
+          <Copy className="h-3 w-3" />
+        )}
+      </button>
+      <pre className="overflow-x-auto px-4 py-4 text-[13px] leading-relaxed text-foreground max-h-[420px]">
+        <code className="font-mono">{renderHighlightedCode(code)}</code>
       </pre>
     </div>
   )

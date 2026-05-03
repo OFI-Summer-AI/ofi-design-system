@@ -1,13 +1,13 @@
-// Tailwind preset for `ofiui`.
+// Tailwind preset for `@daivymoralesofi/ofiui`.
 //
 // Usage in a consumer project (tailwind.config.js):
 //
-//   import ofiuiPreset from "ofiui/tailwind.preset"
+//   import ofiuiPreset from "@daivymoralesofi/ofiui/tailwind.preset"
 //   export default {
 //     presets: [ofiuiPreset],
 //     content: [
 //       "./src/**/*.{ts,tsx}",
-//       "./node_modules/ofiui/dist/**/*.{js,mjs}",
+//       "./node_modules/@daivymoralesofi/ofiui/dist/**/*.{js,mjs}",
 //     ],
 //   }
 import tailwindcssAnimate from "tailwindcss-animate"
@@ -23,14 +23,37 @@ export default {
       screens: { "2xl": "1400px" },
     },
     extend: {
+      maxWidth: {
+        site: "1400px",
+      },
       keyframes: {
         "caret-blink": {
           "0%,70%,100%": { opacity: "1" },
           "20%,50%": { opacity: "0" },
         },
+        "collapsible-down": {
+          from: { height: "0" },
+          to: { height: "var(--radix-collapsible-content-height)" },
+        },
+        "collapsible-up": {
+          from: { height: "var(--radix-collapsible-content-height)" },
+          to: { height: "0" },
+        },
+        "fade-in": {
+          from: { opacity: "0" },
+          to: { opacity: "1" },
+        },
+        "fade-up": {
+          from: { opacity: "0", transform: "translateY(4px)" },
+          to: { opacity: "1", transform: "translateY(0)" },
+        },
       },
       animation: {
         "caret-blink": "caret-blink 1.25s ease-out infinite",
+        "collapsible-down": "collapsible-down 220ms cubic-bezier(0.32, 0.72, 0, 1)",
+        "collapsible-up": "collapsible-up 220ms cubic-bezier(0.32, 0.72, 0, 1)",
+        "fade-in": "fade-in 200ms ease-out",
+        "fade-up": "fade-up 240ms cubic-bezier(0.16, 1, 0.3, 1)",
       },
       colors: {
         border: "hsl(var(--border))",
@@ -40,8 +63,15 @@ export default {
         foreground: {
           DEFAULT: "hsl(var(--foreground))",
           muted: "hsl(var(--muted-foreground))",
-          light: "hsl(var(--muted-foreground) / 0.85)",
+          light: "hsl(var(--foreground-light))",
+          lighter: "hsl(var(--foreground-lighter))",
         },
+        surface: {
+          100: "hsl(var(--surface-100))",
+          200: "hsl(var(--surface-200))",
+          300: "hsl(var(--surface-300))",
+        },
+        studio: "hsl(var(--studio))",
         light: "hsl(var(--muted-foreground))",
         primary: {
           DEFAULT: "hsl(var(--primary))",

@@ -22,7 +22,8 @@ This project is not just a component folder. It is a working docs experience wit
 - [Application flow](#application-flow)
 - [Project structure](#project-structure)
 - [Docs structure](#docs-structure)
-- [Getting started](#getting-started)
+- [Use in a client project](#use-in-a-client-project)
+- [Local development (this repo)](#local-development-this-repo)
 - [Scripts](#scripts)
 - [Design system conventions](#design-system-conventions)
 - [How to add things](#how-to-add-things)
@@ -195,7 +196,116 @@ These are the base components:
 - Table
 - Textarea
 
-## Getting started
+## Use in a client project
+
+OfiUI is published to npm as [`@daivymoralesofi/ofiui`](https://www.npmjs.com/package/@daivymoralesofi/ofiui). Follow the steps below to consume it from any React + Tailwind project (Vite, Next.js, Remix, etc.).
+
+### Step 1 — Install the package
+
+```bash
+npm install @daivymoralesofi/ofiui
+# or
+pnpm add @daivymoralesofi/ofiui
+# or
+yarn add @daivymoralesofi/ofiui
+```
+
+`react` and `react-dom` are peer dependencies — your app must already have them (`^18` or `^19`).
+
+### Step 2 — Install Tailwind CSS
+
+OfiUI is styled with Tailwind. If your project does not already have Tailwind set up, install it first:
+
+```bash
+npm install -D tailwindcss postcss autoprefixer
+npx tailwindcss init -p
+```
+
+### Step 3 — Wire up the Tailwind preset
+
+OfiUI ships a Tailwind preset that contains the design tokens, color scales, container settings, and plugins the components rely on. Extend your `tailwind.config.js` with it:
+
+```js
+// tailwind.config.js
+import ofiuiPreset from "@daivymoralesofi/ofiui/tailwind.preset"
+
+/** @type {import('tailwindcss').Config} */
+export default {
+  presets: [ofiuiPreset],
+  darkMode: ["class"],
+  content: [
+    "./index.html",
+    "./src/**/*.{ts,tsx}",
+    // IMPORTANT: include the published library so its class names are not purged
+    "./node_modules/@daivymoralesofi/ofiui/dist/**/*.{js,mjs}",
+  ],
+}
+```
+
+The `content` entry that points to `node_modules/@daivymoralesofi/ofiui/dist/**` is required — without it Tailwind will tree-shake the classes used by OfiUI components and they will render unstyled.
+
+### Step 4 — Import the stylesheet
+
+Import the prebuilt OfiUI stylesheet **once** at the entry point of your app (typically `main.tsx`, `_app.tsx`, or `layout.tsx`):
+
+```ts
+import "@daivymoralesofi/ofiui/styles.css"
+```
+
+This file contains the CSS-variable theme tokens (`--background`, `--foreground`, `--primary`, `--radius`, …) for both light and dark modes. You should import it **before** your own global stylesheet so your overrides win.
+
+### Step 5 — (Optional) Enable dark mode
+
+Dark mode is class-based. Add the `dark` class to `<html>` or any ancestor to flip every semantic token:
+
+```html
+<html class="dark">
+```
+
+Or toggle it dynamically:
+
+```ts
+document.documentElement.classList.toggle("dark")
+```
+
+### Step 6 — Use a component
+
+```tsx
+import { Button } from "@daivymoralesofi/ofiui"
+import { Plus } from "lucide-react"
+
+export function CreateButton() {
+  return (
+    <Button type="primary" icon={<Plus />}>
+      Create agent
+    </Button>
+  )
+}
+```
+
+All primitives, patterns, and icons are exported from the package root. If your editor supports it, autocomplete from `@daivymoralesofi/ofiui` to discover what's available.
+
+### Step 7 — (Optional) Use the `cn()` helper
+
+The same class-merging helper used internally is also exported, so consumers can compose Tailwind classes the same way:
+
+```ts
+import { cn } from "@daivymoralesofi/ofiui"
+
+<div className={cn("px-3 py-2", isActive && "bg-accent", className)} />
+```
+
+### Troubleshooting
+
+- **Components render without styles** → make sure you imported `@daivymoralesofi/ofiui/styles.css` *and* added `./node_modules/@daivymoralesofi/ofiui/dist/**/*.{js,mjs}` to your Tailwind `content` array.
+- **Dark colors don't apply** → confirm the `dark` class is on `<html>` and that your `tailwind.config.js` has `darkMode: ["class"]`.
+- **TypeScript can't find the module** → ensure `moduleResolution` is `"bundler"` or `"node16"` in `tsconfig.json` so it can resolve the package's `exports` map.
+
+---
+
+## Local development (this repo)
+
+The sections below are for contributors working on OfiUI itself.
 
 ### Prerequisites
 
@@ -226,6 +336,14 @@ http://localhost:5173
 npm run build
 ```
 
+### Build the publishable library
+
+```bash
+npm run build:lib
+```
+
+This runs the library Vite config and emits `dist/index.mjs`, `dist/index.cjs`, `dist/index.d.ts`, and `dist/styles.css` — the artifacts shipped to npm.
+
 ### Preview the production build
 
 ```bash
@@ -240,7 +358,10 @@ Defined in [package.json](/Users/daivymorales/Documents/GitHub/ofi-design-system
   Starts the Vite dev server.
 
 - `npm run build`
-  Runs TypeScript project builds and then Vite production build.
+  Runs TypeScript project builds and then Vite production build (the docs site).
+
+- `npm run build:lib`
+  Builds the publishable library bundle and stylesheet under `dist/`.
 
 - `npm run preview`
   Serves the production build locally.

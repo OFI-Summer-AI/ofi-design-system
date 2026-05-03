@@ -1,5 +1,6 @@
 import PageHeader from "../../components/PageHeader"
 import ComponentPreview from "../../components/ComponentPreview"
+import ImportBlock from "../../components/ImportBlock"
 import { AspectRatio } from "@/components/ui/aspect-ratio"
 
 export default function AspectRatioDoc() {
@@ -9,6 +10,7 @@ export default function AspectRatioDoc() {
         title="Aspect ratio"
         description="Locks a child element to a specified width-to-height ratio. Useful for media, video embeds, and image placeholders that should not jump as content loads."
       />
+      <ImportBlock imports={["AspectRatio"]} />
       <ComponentPreview
         preview={
           <div className="w-full max-w-sm">

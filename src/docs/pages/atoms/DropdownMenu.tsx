@@ -1,5 +1,6 @@
 import PageHeader from "../../components/PageHeader"
 import ComponentPreview from "../../components/ComponentPreview"
+import ImportBlock from "../../components/ImportBlock"
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -17,6 +18,7 @@ export default function DropdownMenuDoc() {
         title="Dropdown menu"
         description="A short list of actions or options anchored to a trigger. Use for row-level actions in tables, profile menus, and command-bar overflow."
       />
+      <ImportBlock imports={["DropdownMenu", "DropdownMenuContent", "DropdownMenuItem", "DropdownMenuLabel", "DropdownMenuSeparator", "DropdownMenuTrigger", "Button"]} />
       <ComponentPreview
         preview={
           <DropdownMenu>

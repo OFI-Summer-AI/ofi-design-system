@@ -4,6 +4,7 @@ import { Label } from "@/components/ui/label"
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
 import CodeBlock from "../../components/CodeBlock"
 import ComponentPreview from "../../components/ComponentPreview"
+import ImportBlock from "../../components/ImportBlock"
 import PageHeader from "../../components/PageHeader"
 import { H2, H3, InlineCode, P } from "../../components/Section"
 
@@ -52,6 +53,7 @@ export default function PopoverDoc() {
         title="Popover"
         description="Displays rich content in a portal, triggered by a button."
       />
+      <ImportBlock imports={["Button", "Input", "Label", "Popover", "PopoverContent", "PopoverTrigger"]} />
 
       <ComponentPreview
         preview={<PopoverDemo />}

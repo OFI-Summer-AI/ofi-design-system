@@ -1,5 +1,6 @@
 import PageHeader from "../../components/PageHeader"
 import ComponentPreview from "../../components/ComponentPreview"
+import ImportBlock from "../../components/ImportBlock"
 import {
   Pagination,
   PaginationContent,
@@ -17,6 +18,7 @@ export default function PaginationDoc() {
         title="Pagination"
         description="A navigation control for paged collections. Use when results would otherwise exceed a comfortable scroll length."
       />
+      <ImportBlock imports={["Pagination", "PaginationContent", "PaginationEllipsis", "PaginationItem", "PaginationLink", "PaginationNext", "PaginationPrevious"]} />
       <ComponentPreview
         preview={
           <Pagination>

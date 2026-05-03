@@ -2,6 +2,7 @@ import * as React from "react"
 import { Progress } from "@/components/ui/progress"
 import CodeBlock from "../../components/CodeBlock"
 import ComponentPreview from "../../components/ComponentPreview"
+import ImportBlock from "../../components/ImportBlock"
 import PageHeader from "../../components/PageHeader"
 import { H2, H3, InlineCode, P } from "../../components/Section"
 
@@ -23,6 +24,7 @@ export default function ProgressDoc() {
         title="Progress"
         description="Displays an indicator showing the completion progress of a task, typically displayed as a progress bar."
       />
+      <ImportBlock imports={["Progress"]} />
 
       <ComponentPreview
         preview={<ProgressDemo />}

@@ -14,6 +14,7 @@ import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area"
 import { cn } from "@/lib/utils"
 import CodeBlock from "../../components/CodeBlock"
 import ComponentPreview from "../../components/ComponentPreview"
+import ImportBlock from "../../components/ImportBlock"
 import PageHeader from "../../components/PageHeader"
 import { H2, H3, InlineCode, P } from "../../components/Section"
 
@@ -244,6 +245,7 @@ export default function NavigationMenuDoc() {
         title="Navigation Menu"
         description="A collection of links for navigating websites."
       />
+      <ImportBlock imports={["buttonVariants", "NavigationMenu", "NavigationMenuContent", "NavigationMenuItem", "NavigationMenuLink", "NavigationMenuList", "NavigationMenuTrigger", "NavigationMenuViewport", "navigationMenuTriggerStyle", "ScrollArea", "ScrollBar", "cn"]} />
 
       <P>This component uses Radix UI.</P>
 

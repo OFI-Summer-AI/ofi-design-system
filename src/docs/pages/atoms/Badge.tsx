@@ -1,6 +1,7 @@
 import PageHeader from "../../components/PageHeader"
 import ComponentPreview from "../../components/ComponentPreview"
 import PropTable from "../../components/PropTable"
+import ImportBlock from "../../components/ImportBlock"
 import { H2 } from "../../components/Section"
 import { Badge } from "@/components/ui/badge"
 
@@ -11,6 +12,7 @@ export default function BadgeDoc() {
         title="Badge"
         description="A compact label used to indicate status, count, or category. Badges should be readable on their own — pair them with an icon when the variant alone could be ambiguous."
       />
+      <ImportBlock imports={["Badge"]} />
 
       <H2>Variants</H2>
       <ComponentPreview

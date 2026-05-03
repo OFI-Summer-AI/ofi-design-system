@@ -3,6 +3,7 @@ import { KeyboardShortcut } from "@/components/ui/keyboard-shortcut"
 import ComponentPreview from "../../components/ComponentPreview"
 import PageHeader from "../../components/PageHeader"
 import PropTable from "../../components/PropTable"
+import ImportBlock from "../../components/ImportBlock"
 import { H2, H3, InlineCode, P } from "../../components/Section"
 import CodeBlock from "../../components/CodeBlock"
 
@@ -25,6 +26,7 @@ export default function KeyboardShortcutDoc() {
         title="Keyboard Shortcut"
         description="Displays a platform-aware keyboard shortcut label for buttons, menus, tooltips, and helper text."
       />
+      <ImportBlock imports={["Button", "KeyboardShortcut"]} />
 
       <ComponentPreview
         preview={

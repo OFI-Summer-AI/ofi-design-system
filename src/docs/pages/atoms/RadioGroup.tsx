@@ -15,6 +15,7 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { Toaster, toast } from "@/components/ui/sonner"
 import CodeBlock from "../../components/CodeBlock"
 import ComponentPreview from "../../components/ComponentPreview"
+import ImportBlock from "../../components/ImportBlock"
 import PageHeader from "../../components/PageHeader"
 import { H2, H3, InlineCode, P } from "../../components/Section"
 
@@ -115,6 +116,7 @@ export default function RadioGroupDoc() {
         title="Radio Group"
         description="A set of checkable buttons—known as radio buttons—where no more than one of the buttons can be checked at a time."
       />
+      <ImportBlock imports={["Button", "Form", "FormControl", "FormField", "FormItem", "FormLabel", "FormMessage", "Label", "RadioGroup", "RadioGroupItem", "Toaster", "toast"]} />
 
       <ComponentPreview
         preview={<RadioGroupDemo />}

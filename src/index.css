@@ -73,6 +73,13 @@
     --chart-3: 35 90% 55%;
     --chart-4: 280 65% 60%;
     --chart-5: 12 76% 61%;
+
+    --foreground-light: 0 0% 32%;
+    --foreground-lighter: 0 0% 45%;
+    --surface-100: 0 0% 98%;
+    --surface-200: 0 0% 95%;
+    --surface-300: 0 0% 92%;
+    --studio: 0 0% 100%;
   }
 
   .dark {
@@ -104,6 +111,55 @@
     --chart-3: 35 90% 55%;
     --chart-4: 280 65% 60%;
     --chart-5: 12 76% 61%;
+
+    --foreground-light: 0 0% 70%;
+    --foreground-lighter: 0 0% 55%;
+    --surface-100: 0 0% 10%;
+    --surface-200: 0 0% 13%;
+    --surface-300: 0 0% 16%;
+    --studio: 0 0% 9%;
+  }
+}
+
+@layer base {
+  /* Selection */
+  ::selection {
+    background: hsl(var(--primary) / 0.25);
+  }
+}
+
+@layer utilities {
+  /* Dotted grid background used by ComponentPreview */
+  .preview-grid-dotted {
+    background-image: radial-gradient(
+      hsl(var(--foreground) / 0.06) 1px,
+      transparent 1px
+    );
+    background-size: 16px 16px;
+    -webkit-mask-image: radial-gradient(
+      ellipse 50% 50% at 50% 50%,
+      #000 70%,
+      transparent 100%
+    );
+    mask-image: radial-gradient(
+      ellipse 50% 50% at 50% 50%,
+      #000 70%,
+      transparent 100%
+    );
+  }
+
+  .preview-grid-lined {
+    background-image: linear-gradient(
+        to right,
+        hsl(var(--foreground) / 0.04) 1px,
+        transparent 1px
+      ),
+      linear-gradient(
+        to bottom,
+        hsl(var(--foreground) / 0.04) 1px,
+        transparent 1px
+      );
+    background-size: 24px 24px;
   }
 }
 

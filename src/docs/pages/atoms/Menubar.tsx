@@ -15,6 +15,7 @@ import {
 } from "@/components/ui/menubar"
 import CodeBlock from "../../components/CodeBlock"
 import ComponentPreview from "../../components/ComponentPreview"
+import ImportBlock from "../../components/ImportBlock"
 import PageHeader from "../../components/PageHeader"
 import { H2, H3, InlineCode, P } from "../../components/Section"
 
@@ -115,6 +116,7 @@ export default function MenubarDoc() {
         title="Menubar"
         description="A visually persistent menu common in desktop applications that provides quick access to a consistent set of commands."
       />
+      <ImportBlock imports={["Menubar", "MenubarCheckboxItem", "MenubarContent", "MenubarItem", "MenubarMenu", "MenubarRadioGroup", "MenubarRadioItem", "MenubarSeparator", "MenubarShortcut", "MenubarSub", "MenubarSubContent", "MenubarSubTrigger", "MenubarTrigger"]} />
 
       <P>This component uses Radix UI.</P>
 

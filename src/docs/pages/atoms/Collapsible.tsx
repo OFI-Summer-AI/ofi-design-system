@@ -1,6 +1,7 @@
 import { useState } from "react"
 import PageHeader from "../../components/PageHeader"
 import ComponentPreview from "../../components/ComponentPreview"
+import ImportBlock from "../../components/ImportBlock"
 import {
   Collapsible,
   CollapsibleContent,
@@ -28,6 +29,7 @@ export default function CollapsibleDoc() {
         title="Collapsible"
         description="An expand/collapse primitive without the visual chrome of an Accordion. Use when you need progressive disclosure of a single block of content."
       />
+      <ImportBlock imports={["Collapsible", "CollapsibleContent", "CollapsibleTrigger", "Button"]} />
       <ComponentPreview
         preview={<Demo />}
         code={`<Collapsible>

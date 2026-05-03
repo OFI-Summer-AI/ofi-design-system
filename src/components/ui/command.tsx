@@ -2,6 +2,7 @@ import * as React from "react"
 import { Command as CommandPrimitive } from "cmdk"
 import { Search } from "lucide-react"
 import { cn } from "@/lib/utils"
+import { Dialog, DialogContent } from "@/components/ui/dialog"
 
 export const Command = React.forwardRef<
   React.ElementRef<typeof CommandPrimitive>,
@@ -101,3 +102,32 @@ export const CommandItem = React.forwardRef<
   />
 ))
 CommandItem.displayName = CommandPrimitive.Item.displayName
+
+export function CommandShortcut({
+  className,
+  ...props
+}: React.HTMLAttributes<HTMLSpanElement>) {
+  return (
+    <span
+      className={cn(
+        "ml-auto text-xs tracking-widest text-foreground-muted",
+        className,
+      )}
+      {...props}
+    />
+  )
+}
+
+export interface CommandDialogProps extends React.ComponentProps<typeof Dialog> {}
+
+export function CommandDialog({ children, ...props }: CommandDialogProps) {
+  return (
+    <Dialog {...props}>
+      <DialogContent className="overflow-hidden p-0 shadow-lg">
+        <Command className="[&_[cmdk-group-heading]]:px-2 [&_[cmdk-group-heading]]:font-medium [&_[cmdk-group-heading]]:text-foreground-muted [&_[cmdk-group]]:px-2 [&_[cmdk-input]]:h-12 [&_[cmdk-item]]:px-2 [&_[cmdk-item]]:py-3">
+          {children}
+        </Command>
+      </DialogContent>
+    </Dialog>
+  )
+}

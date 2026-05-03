@@ -1,5 +1,6 @@
 import PageHeader from "../../components/PageHeader"
 import ComponentPreview from "../../components/ComponentPreview"
+import ImportBlock from "../../components/ImportBlock"
 import { ScrollArea } from "@/components/ui/scroll-area"
 
 export default function ScrollAreaDoc() {
@@ -9,6 +10,7 @@ export default function ScrollAreaDoc() {
         title="Scroll area"
         description="A scroll container with custom-styled scrollbars that match the system's aesthetic. Use when you need consistent scrollbar treatment across browsers."
       />
+      <ImportBlock imports={["ScrollArea"]} />
       <ComponentPreview
         preview={
           <ScrollArea className="h-40 w-72 rounded-md border border-border p-3 text-sm">

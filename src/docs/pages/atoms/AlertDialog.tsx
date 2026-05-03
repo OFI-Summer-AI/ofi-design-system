@@ -1,5 +1,6 @@
 import PageHeader from "../../components/PageHeader"
 import ComponentPreview from "../../components/ComponentPreview"
+import ImportBlock from "../../components/ImportBlock"
 import {
   AlertDialog,
   AlertDialogAction,
@@ -21,6 +22,7 @@ export default function AlertDialogDoc() {
         title="Alert dialog"
         description="A modal dialog for critical confirmations and acknowledgements that require an explicit user decision."
       />
+      <ImportBlock imports={["AlertDialog", "AlertDialogAction", "AlertDialogCancel", "AlertDialogContent", "AlertDialogDescription", "AlertDialogFooter", "AlertDialogHeader", "AlertDialogTitle", "AlertDialogTrigger", "Button", "buttonVariants", "cn"]} />
 
       <div className="mb-6 space-y-3 text-sm text-foreground-muted">
         <p>This component uses Radix UI.</p>

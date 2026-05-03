@@ -1,5 +1,6 @@
 import PageHeader from "../../components/PageHeader"
 import ComponentPreview from "../../components/ComponentPreview"
+import ImportBlock from "../../components/ImportBlock"
 import {
   Command,
   CommandEmpty,
@@ -17,6 +18,7 @@ export default function CommandDoc() {
         title="Command"
         description="A keyboard-first command palette built on cmdk. Powers quick navigation, search, and action menus across the product."
       />
+      <ImportBlock imports={["Command", "CommandEmpty", "CommandGroup", "CommandInput", "CommandItem", "CommandList", "CommandSeparator"]} />
       <ComponentPreview
         preview={
           <Command className="w-full max-w-md rounded-lg border border-border">
