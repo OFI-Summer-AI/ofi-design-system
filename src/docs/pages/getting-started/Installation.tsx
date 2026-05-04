@@ -14,7 +14,7 @@ export default function Installation() {
       <P>
         Install the package using your preferred package manager. Ensure <InlineCode>react</InlineCode> and <InlineCode>react-dom</InlineCode> (^18 or ^19) are already present in your dependencies.
       </P>
-      <CodeBlock lang="bash" code={`npm install @daivymoralesofi/ofiui
+      <CodeBlock language="bash" code={`npm install @daivymoralesofi/ofiui
 # or
 pnpm add @daivymoralesofi/ofiui`} />
 
@@ -22,14 +22,14 @@ pnpm add @daivymoralesofi/ofiui`} />
       <P>
         If your project does not already have Tailwind set up, install it first:
       </P>
-      <CodeBlock lang="bash" code={`npm install -D tailwindcss postcss autoprefixer
+      <CodeBlock language="bash" code={`npm install -D tailwindcss postcss autoprefixer
 npx tailwindcss init -p`} />
 
       <H2>Step 3 — Wire up the Tailwind preset</H2>
       <P>
         Extend your <InlineCode>tailwind.config.js</InlineCode> to use the OfiUI preset.
       </P>
-      <CodeBlock lang="js" code={`import ofiuiPreset from "@daivymoralesofi/ofiui/tailwind.preset"
+      <CodeBlock language="js" code={`import ofiuiPreset from "@daivymoralesofi/ofiui/tailwind.preset"
 
 /** @type {import('tailwindcss').Config} */
 export default {
@@ -47,17 +47,17 @@ export default {
       <P>
         Import the prebuilt OfiUI stylesheet once at the entry point of your app (typically <InlineCode>main.tsx</InlineCode>, <InlineCode>_app.tsx</InlineCode>, or <InlineCode>layout.tsx</InlineCode>):
       </P>
-      <CodeBlock lang="tsx" code={`import "@daivymoralesofi/ofiui/styles.css"`} />
+      <CodeBlock language="tsx" code={`import "@daivymoralesofi/ofiui/styles.css"`} />
 
       <H2>Step 5 — Enable dark mode</H2>
       <P>
         Dark mode is class-based. Add the <InlineCode>dark</InlineCode> class to <InlineCode>&lt;html&gt;</InlineCode> or any ancestor to flip every semantic token.
       </P>
-      <CodeBlock lang="html" code={`<html class="dark">`} />
+      <CodeBlock language="html" code={`<html class="dark">`} />
       <P>
         If using <b>Next.js</b>, we recommend using <InlineCode>next-themes</InlineCode> to handle theme state and avoid hydration flickering:
       </P>
-      <CodeBlock lang="tsx" code={`import { ThemeProvider } from "next-themes"
+      <CodeBlock language="tsx" code={`import { ThemeProvider } from "next-themes"
 
 export default function RootLayout({ children }) {
   return (
@@ -74,7 +74,7 @@ export default function RootLayout({ children }) {
       <P>
         To allow users to switch themes, use the <InlineCode>useTheme</InlineCode> hook:
       </P>
-      <CodeBlock lang="tsx" code={`"use client"
+      <CodeBlock language="tsx" code={`"use client"
 import { useTheme } from "next-themes"
 import { Button } from "@daivymoralesofi/ofiui"
 
@@ -88,7 +88,7 @@ export function ThemeToggle() {
 }`} />
 
       <H2>Step 6 — Use a component</H2>
-      <CodeBlock lang="tsx" code={`import { Button } from "@daivymoralesofi/ofiui"
+      <CodeBlock language="tsx" code={`import { Button } from "@daivymoralesofi/ofiui"
 import { Plus } from "lucide-react"
 
 export function CreateButton() {

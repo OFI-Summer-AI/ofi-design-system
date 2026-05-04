@@ -70,9 +70,9 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
         <div className="absolute right-1 top-1/2 flex -translate-y-1/2 gap-1">
           {reveal && (
             <Button
-              type="button"
+              htmlType="button"
               size="tiny"
-              variant="ghost"
+              type="text"
               icon={isVisible ? <EyeOff /> : <Eye />}
               onClick={() => setIsVisible(!isVisible)}
               aria-label={isVisible ? "Hide value" : "Reveal value"}
@@ -80,9 +80,9 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
           )}
           {copy && (
             <Button
-              type="button"
+              htmlType="button"
               size="tiny"
-              variant="ghost"
+              type="text"
               icon={copied ? <Check /> : <Copy />}
               onClick={handleCopy}
               aria-label="Copy to clipboard"
