@@ -1,26 +1,62 @@
-import PageHeader from "../../components/PageHeader"
-import ComponentPreview from "../../components/ComponentPreview"
+import * as React from "react"
 import { Progress } from "@/components/ui/progress"
+import CodeBlock from "../../components/CodeBlock"
+import ComponentPreview from "../../components/ComponentPreview"
+import ImportBlock from "../../components/ImportBlock"
+import PageHeader from "../../components/PageHeader"
+import { H2, H3, InlineCode, P } from "../../components/Section"
+
+function ProgressDemo() {
+  const [progress, setProgress] = React.useState(13)
+
+  React.useEffect(() => {
+    const timer = window.setTimeout(() => setProgress(66), 500)
+    return () => window.clearTimeout(timer)
+  }, [])
+
+  return <Progress value={progress} className="w-[60%]" />
+}
 
 export default function ProgressDoc() {
   return (
     <>
       <PageHeader
         title="Progress"
-        description="A determinate progress indicator. Use for operations with a known duration or completion percentage; for unknown durations, use a Skeleton or spinner."
+        description="Displays an indicator showing the completion progress of a task, typically displayed as a progress bar."
       />
+      <ImportBlock imports={["Progress"]} />
+
       <ComponentPreview
-        preview={
-          <div className="w-full max-w-sm space-y-2">
-            <Progress value={32} />
-            <Progress value={68} />
-            <Progress value={100} />
-          </div>
-        }
-        code={`<Progress value={32} />
-<Progress value={68} />
-<Progress value={100} />`}
+        preview={<ProgressDemo />}
+        code={`'use client'
+
+import * as React from 'react'
+import { Progress } from 'ui'
+
+export function ProgressDemo() {
+  const [progress, setProgress] = React.useState(13)
+
+  React.useEffect(() => {
+    const timer = setTimeout(() => setProgress(66), 500)
+    return () => clearTimeout(timer)
+  }, [])
+
+  return <Progress value={progress} className="w-[60%]" />
+}`}
       />
+
+      <H2>Installation</H2>
+      <H3>CLI</H3>
+      <CodeBlock language="bash" code="npx shadcn-ui@latest add progress" />
+      <H3>Manual</H3>
+      <P>
+        The primitive lives at <InlineCode>src/components/ui/progress.tsx</InlineCode>{" "}
+        and is built on Radix UI.
+      </P>
+
+      <H2>Usage</H2>
+      <CodeBlock className="max-w-3xl" code={`import { Progress } from "@/components/ui/progress"`} />
+      <CodeBlock className="max-w-3xl" code={`<Progress value={33} />`} />
     </>
   )
 }

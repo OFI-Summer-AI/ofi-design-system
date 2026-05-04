@@ -1,5 +1,5 @@
 import * as React from "react"
-import { Check, Copy } from "lucide-react"
+import { Check, Copy, Eye, EyeOff } from "lucide-react"
 import { Input as InputShadcn } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
@@ -7,15 +7,31 @@ import { cn } from "@/lib/utils"
 export interface InputProps
   extends React.InputHTMLAttributes<HTMLInputElement> {
   copy?: boolean
+  reveal?: boolean
+  containerClassName?: string
   onCopy?: () => void
 }
 
 export const Input = React.forwardRef<HTMLInputElement, InputProps>(
-  ({ copy, onCopy, className, value, ...props }, ref) => {
+  (
+    {
+      copy,
+      reveal,
+      onCopy,
+      className,
+      containerClassName,
+      value,
+      defaultValue,
+      type = "text",
+      ...props
+    },
+    ref,
+  ) => {
     const [copied, setCopied] = React.useState(false)
+    const [isVisible, setIsVisible] = React.useState(false)
 
     const handleCopy = async () => {
-      const text = typeof value === "string" ? value : String(value ?? "")
+      const text = String(value ?? defaultValue ?? "")
       try {
         await navigator.clipboard.writeText(text)
       } catch {}
@@ -24,28 +40,55 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
       setTimeout(() => setCopied(false), 1200)
     }
 
-    if (!copy) {
+    const inputType = reveal && !isVisible ? "password" : type
+
+    if (!copy && !reveal) {
       return (
-        <InputShadcn ref={ref} value={value} className={className} {...props} />
+        <div className={cn("w-full", containerClassName)}>
+          <InputShadcn
+            ref={ref}
+            value={value}
+            defaultValue={defaultValue}
+            className={className}
+            type={type}
+            {...props}
+          />
+        </div>
       )
     }
 
     return (
-      <div className="relative w-full">
+      <div className={cn("relative w-full", containerClassName)}>
         <InputShadcn
           ref={ref}
           value={value}
-          className={cn("pr-10 font-mono text-xs", className)}
+          defaultValue={defaultValue}
+          type={inputType}
+          className={cn("font-mono text-xs", (copy || reveal) && "pr-16", className)}
           {...props}
         />
-        <Button
-          type="text"
-          size="tiny"
-          icon={copied ? <Check /> : <Copy />}
-          onClick={handleCopy}
-          aria-label="Copy to clipboard"
-          className="absolute right-1 top-1/2 -translate-y-1/2"
-        />
+        <div className="absolute right-1 top-1/2 flex -translate-y-1/2 gap-1">
+          {reveal && (
+            <Button
+              type="button"
+              size="tiny"
+              variant="ghost"
+              icon={isVisible ? <EyeOff /> : <Eye />}
+              onClick={() => setIsVisible(!isVisible)}
+              aria-label={isVisible ? "Hide value" : "Reveal value"}
+            />
+          )}
+          {copy && (
+            <Button
+              type="button"
+              size="tiny"
+              variant="ghost"
+              icon={copied ? <Check /> : <Copy />}
+              onClick={handleCopy}
+              aria-label="Copy to clipboard"
+            />
+          )}
+        </div>
       </div>
     )
   },

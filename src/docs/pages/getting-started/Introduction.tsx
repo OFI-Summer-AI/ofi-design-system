@@ -6,7 +6,7 @@ export default function Introduction() {
     <>
       <PageHeader
         title="Introduction"
-        description="The OFI Design System is a React + TypeScript component library that powers OFI's product surfaces. It is built on top of shadcn/ui, Radix primitives, and Tailwind CSS."
+        description="OfiUI is a React + TypeScript component library that powers OFI's product surfaces. It is built on top of shadcn/ui, Radix primitives, and Tailwind CSS — inspired by the Supabase Design System."
       />
 
       <H2>What's inside</H2>
@@ -21,7 +21,31 @@ export default function Introduction() {
       <P>
         We optimize for clarity over decoration. Surfaces are flat, motion is restrained,
         and density favors information over whitespace. Every component is themeable through
-        CSS variables so a single token change re-skins the entire application.
+        CSS variables so a single token change re-skins the entire application. The visual
+        language and component architecture draw heavy inspiration from the{" "}
+        <a
+          href="https://ui.supabase.com"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="underline underline-offset-2 hover:text-foreground transition-colors"
+        >
+          Supabase Design System
+        </a>
+        .
+      </P>
+
+      <H2>Author</H2>
+      <P>
+        OfiUI was designed and built by{" "}
+        <a
+          href="mailto:d.morales@ofiservices.com"
+          className="underline underline-offset-2 hover:text-foreground transition-colors"
+        >
+          Daivy Morales
+        </a>
+        , AI &amp; Innovation Intern at Ofi Services in Latin America. It
+        started as an internal initiative to give every AI Agent a consistent,
+        premium frontend — and grew into this system.
       </P>
 
       <H2>Getting set up</H2>

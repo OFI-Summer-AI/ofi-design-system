@@ -6,9 +6,27 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 # OFI Design System
 
-A React + TypeScript design system built on top of [shadcn/ui](https://ui.shadcn.com), [Radix UI](https://www.radix-ui.com), and [Tailwind CSS](https://tailwindcss.com). The repo doubles as a living showcase: `src/App.tsx` renders every primitive and pattern as documentation, and `src/LandingPage.tsx` demonstrates a full marketing layout assembled from the same building blocks.
+A React + TypeScript design system built on top of [shadcn/ui](https://ui.shadcn.com), [Radix UI](https://www.radix-ui.com), and [Tailwind CSS](https://tailwindcss.com), **inspired by the [Supabase Design System](https://ui.supabase.com)**. The repo doubles as a living showcase: `src/App.tsx` renders every primitive and pattern as documentation, and `src/LandingPage.tsx` demonstrates a full marketing layout assembled from the same building blocks.
 
 This document is the canonical reference for installing, configuring, extending, and consuming the system.
+
+---
+
+## About Ofi Services
+
+Ofi Services is a global leader in process mining and automation services, offering end-to-end support from implementation to value realization. Ofi holds the prestigious **Celonis Platinum Partner** title (2025) and operates with a lean global model — delivery teams in emerging markets — to bring world-class expertise at competitive pricing.
+
+The tech team at Ofi builds **AI Agents** that frequently need a frontend layer: dashboards, forms, landing pages, and other interfaces that surface agent output to end users. This design system exists to solve that problem.
+
+## Purpose of this library
+
+This library gives every agent builder at Ofi a consistent, premium frontend without writing any bespoke UI code. Instead of hardcoding styles or reinventing components for each agent, teams pull from this system and get:
+
+- **Brand consistency** — colors, typography, and tone aligned with Ofi Services' visual identity
+- **Speed** — pre-built primitives and patterns mean agents ship with polished UI from day one
+- **Quality** — no more ad-hoc frontend; every surface looks and feels the same regardless of who built the agent
+
+When building or extending this system, always ask: *does this component help an agent builder ship a frontend faster while keeping it on-brand?* That is the north star.
 
 ---
 

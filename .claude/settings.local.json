@@ -1,0 +1,22 @@
+{
+  "permissions": {
+    "allow": [
+      "mcp__chakra-ui__installation",
+      "mcp__chakra-ui__get_component_example",
+      "Bash(npm install *)",
+      "Bash(npm run *)",
+      "Bash(curl *)",
+      "Bash(lsof -ti:5173)",
+      "Bash(xargs kill *)",
+      "Bash(npx tsc *)",
+      "WebFetch(domain:supabase.com)",
+      "Read(//tmp/**)",
+      "Bash(npx tailwindcss *)",
+      "Bash(node -e 'const s=require\\('\\\\''sucrase'\\\\''\\).transform\\(require\\('\\\\''fs'\\\\''\\).readFileSync\\('\\\\''__TRACKED_VAR__'\\\\'','\\\\''utf8'\\\\''\\),{transforms:['\\\\''typescript'\\\\'','\\\\''jsx'\\\\'']}\\);')",
+      "Bash(node -e 'require\\('\\\\''sucrase'\\\\''\\).transform\\(require\\('\\\\''fs'\\\\''\\).readFileSync\\('\\\\''__TRACKED_VAR__'\\\\'','\\\\''utf8'\\\\''\\),{transforms:['\\\\''typescript'\\\\'','\\\\''jsx'\\\\'']}\\);')",
+      "Bash(node -e 'try{require\\('\\\\''sucrase'\\\\''\\).transform\\(require\\('\\\\''fs'\\\\''\\).readFileSync\\('\\\\''__TRACKED_VAR__'\\\\'','\\\\''utf8'\\\\''\\),{transforms:['\\\\''typescript'\\\\'','\\\\''jsx'\\\\'']}\\)}catch\\(e\\){console.log\\('\\\\''FAIL:'\\\\'','\\\\''__TRACKED_VAR__'\\\\'',e.message\\)}')",
+      "Bash(node *)",
+      "Bash(npm version *)"
+    ]
+  }
+}

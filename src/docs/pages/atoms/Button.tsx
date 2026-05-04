@@ -2,6 +2,7 @@ import { Plus, Trash2 } from "lucide-react"
 import PageHeader from "../../components/PageHeader"
 import ComponentPreview from "../../components/ComponentPreview"
 import PropTable from "../../components/PropTable"
+import ImportBlock from "../../components/ImportBlock"
 import { H2, P, InlineCode } from "../../components/Section"
 import { Button } from "@/components/ui/button"
 
@@ -12,6 +13,7 @@ export default function ButtonDoc() {
         title="Button"
         description="Buttons trigger actions. The Button component composes three independent axes: type (visual treatment), size, and block (full-width)."
       />
+      <ImportBlock imports={["Button"]} />
 
       <H2>Variants</H2>
       <P>

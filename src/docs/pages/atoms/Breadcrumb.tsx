@@ -1,5 +1,6 @@
 import PageHeader from "../../components/PageHeader"
 import ComponentPreview from "../../components/ComponentPreview"
+import ImportBlock from "../../components/ImportBlock"
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -16,6 +17,7 @@ export default function BreadcrumbDoc() {
         title="Breadcrumb"
         description="A trail of links showing the user's location within a hierarchy. Use only when the page lives more than one level deep — a single-level page doesn't need breadcrumbs."
       />
+      <ImportBlock imports={["Breadcrumb", "BreadcrumbItem", "BreadcrumbLink", "BreadcrumbList", "BreadcrumbPage", "BreadcrumbSeparator"]} />
       <ComponentPreview
         preview={
           <Breadcrumb>

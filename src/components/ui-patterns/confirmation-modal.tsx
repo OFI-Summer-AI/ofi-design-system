@@ -36,10 +36,10 @@ export function ConfirmationModal({
       <AlertDialogContent>
         <AlertDialogHeader>
           <AlertDialogTitle>{title}</AlertDialogTitle>
-          {description && (
-            <AlertDialogDescription>{description}</AlertDialogDescription>
-          )}
         </AlertDialogHeader>
+        {description && (
+          <AlertDialogDescription>{description}</AlertDialogDescription>
+        )}
         <AlertDialogFooter>
           <AlertDialogCancel>{cancelLabel}</AlertDialogCancel>
           <AlertDialogAction

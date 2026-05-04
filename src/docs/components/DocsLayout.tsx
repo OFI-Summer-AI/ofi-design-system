@@ -1,59 +1,74 @@
-import { useEffect, useMemo, useRef } from "react"
-import { cn } from "@/lib/utils"
+import { useEffect, useMemo, useState } from "react"
 import { docSections, flatRoutes } from "../routes"
 import { useHashRoute } from "../router"
 import DocsSidebar from "./DocsSidebar"
 import DocsTOC from "./DocsTOC"
+import TopNavigation from "./TopNavigation"
+import Pager from "./Pager"
+import { Sheet, SheetContent } from "@/components/ui/sheet"
+import { ScrollArea } from "@/components/ui/scroll-area"
 
 export default function DocsLayout() {
   const [slug] = useHashRoute()
+  const [mobileOpen, setMobileOpen] = useState(false)
+
   const route = useMemo(
     () => flatRoutes.find((r) => r.slug === slug) ?? flatRoutes[0],
     [slug],
   )
-  const contentRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
-    contentRef.current?.scrollTo({ top: 0 })
+    window.scrollTo({ top: 0 })
+    setMobileOpen(false)
   }, [slug])
 
   const Page = route.Component
 
   return (
     <div className="min-h-screen bg-background text-foreground">
-      <header className="sticky top-0 z-30 flex h-14 items-center gap-3 border-b border-border bg-background/80 px-6 backdrop-blur">
-        <div className="flex items-center gap-2 text-sm font-semibold">
-          <div className="flex h-6 w-6 items-center justify-center rounded-sm bg-brand text-[11px] font-bold text-black">
-            O
+      <TopNavigation onToggleSidebar={() => setMobileOpen((o) => !o)} />
+
+      <Sheet open={mobileOpen} onOpenChange={setMobileOpen}>
+        <SheetContent side="left" className="w-[280px] p-0">
+          <ScrollArea className="h-full">
+            <DocsSidebar
+              sections={docSections}
+              activeSlug={route.slug}
+              onNavigate={() => setMobileOpen(false)}
+            />
+          </ScrollArea>
+        </SheetContent>
+      </Sheet>
+
+      <main className="flex-1 max-w-site mx-auto w-full border-l border-r border-b border-border">
+        <div className="flex-1 items-start md:grid md:grid-cols-[220px_minmax(0,1fr)] lg:grid-cols-[240px_minmax(0,1fr)]">
+          <aside className="fixed top-12 z-30 hidden h-[calc(100vh-3rem)] w-full shrink-0 md:sticky md:block border-r border-border">
+            <ScrollArea className="h-full">
+              <DocsSidebar sections={docSections} activeSlug={route.slug} />
+            </ScrollArea>
+          </aside>
+
+          <div
+            key={route.slug}
+            className="relative xl:grid xl:grid-cols-[1fr_180px] gap-4 px-6 py-6 lg:py-8 animate-fade-in"
+          >
+            <article className="mx-auto w-full min-w-0 max-w-4xl flex-1">
+              <Page />
+              <Pager slug={route.slug} />
+            </article>
+
+            <div className="hidden text-sm xl:block">
+              <div className="sticky top-20 -mt-10 pt-8">
+                <ScrollArea className="pb-10">
+                  <div className="h-[calc(100vh-3.5rem)] py-14">
+                    <DocsTOC key={route.slug} />
+                  </div>
+                </ScrollArea>
+              </div>
+            </div>
           </div>
-          OFI Design System
         </div>
-        <nav className="ml-6 flex items-center gap-4 text-sm text-foreground-muted">
-          <a className="text-foreground" href="#/introduction">Docs</a>
-          <a href="https://github.com" className="hover:text-foreground">GitHub</a>
-        </nav>
-      </header>
-
-      <div className="grid grid-cols-[260px_minmax(0,1fr)_240px] gap-0">
-        <aside className="sticky top-14 h-[calc(100vh-3.5rem)] overflow-y-auto border-r border-border px-4 py-6">
-          <DocsSidebar sections={docSections} activeSlug={route.slug} />
-        </aside>
-
-        <main
-          ref={contentRef}
-          className={cn(
-            "max-h-[calc(100vh-3.5rem)] overflow-y-auto px-10 py-10",
-          )}
-        >
-          <article className="mx-auto max-w-3xl">
-            <Page />
-          </article>
-        </main>
-
-        <aside className="sticky top-14 hidden h-[calc(100vh-3.5rem)] overflow-y-auto px-4 py-10 lg:block">
-          <DocsTOC key={route.slug} />
-        </aside>
-      </div>
+      </main>
     </div>
   )
 }

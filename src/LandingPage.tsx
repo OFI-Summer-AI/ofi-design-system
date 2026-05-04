@@ -1,5 +1,28 @@
-import { ArrowRight, Check, Code2, Layers, Palette, Shield, TrendingUp } from "lucide-react"
+import {
+  ArrowRight,
+  Check,
+  Code2,
+  Layers,
+  Palette,
+  Shield,
+  Terminal,
+  Zap,
+  Moon,
+  Package,
+} from "lucide-react"
+import BrandLogo from "@/components/BrandLogo"
 import { Admonition } from "@/components/ui-patterns/admonition"
+import {
+  Chart,
+  ChartCard,
+  ChartContent,
+  ChartHeader,
+  ChartTitle,
+  ChartMetric,
+  ChartLine,
+  ChartBar,
+} from "@/components/ui-patterns/chart"
+import type { ChartTick } from "@/components/ui-patterns/chart"
 import { Avatar, AvatarFallback } from "@/components/ui/avatar"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
@@ -8,164 +31,303 @@ import { Checkbox } from "@/components/ui/checkbox"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Progress } from "@/components/ui/progress"
+import { Separator } from "@/components/ui/separator"
 import { Switch } from "@/components/ui/switch"
 
-// ─── Shared ───────────────────────────────────────────────────────────────────
+// ─── Shared helpers ───────────────────────────────────────────────────────────
 
-function Logo({ light = false }: { light?: boolean }) {
+function SectionLabel({ children }: { children: React.ReactNode }) {
   return (
-    <div className="flex items-center gap-2.5">
-      <div className="h-7 w-7 rounded-lg bg-primary flex items-center justify-center shrink-0 shadow-[0_0_12px_rgba(234,179,8,0.4)]">
-        <svg viewBox="0 0 24 24" className="h-4 w-4 text-primary-foreground" fill="currentColor">
-          <path d="M13.8 2L3 14h8l-.8 8 10.8-12h-8z" />
-        </svg>
+    <p className="text-xs font-semibold uppercase tracking-[0.18em] text-primary">
+      {children}
+    </p>
+  )
+}
+
+function SectionHeading({ children }: { children: React.ReactNode }) {
+  return (
+    <h2 className="text-3xl sm:text-4xl font-bold tracking-tight leading-[1.15]">
+      {children}
+    </h2>
+  )
+}
+
+function SectionSub({ children }: { children: React.ReactNode }) {
+  return (
+    <p className="text-base leading-relaxed text-muted-foreground max-w-lg">
+      {children}
+    </p>
+  )
+}
+
+// ─── Code block ───────────────────────────────────────────────────────────────
+
+function CodeBlock({
+  label,
+  useTerminal = false,
+  children,
+}: {
+  label: string
+  useTerminal?: boolean
+  children: React.ReactNode
+}) {
+  return (
+    <div className="rounded-xl border border-white/8 bg-[#0c0c0c] overflow-hidden">
+      <div className="flex items-center gap-2 px-4 py-3 border-b border-white/6">
+        {useTerminal ? (
+          <Terminal className="h-3.5 w-3.5 text-white/25" />
+        ) : (
+          <Code2 className="h-3.5 w-3.5 text-white/25" />
+        )}
+        <span className="font-mono text-[11px] text-white/25">{label}</span>
       </div>
-      <span className={`text-sm font-semibold tracking-tight ${light ? "text-white" : "text-foreground"}`}>
-        ofi / design
-      </span>
+      <pre className="p-5 font-mono text-[13px] leading-7 overflow-x-auto">
+        {children}
+      </pre>
     </div>
   )
 }
 
-// ─── Hero ────────────────────────────────────────────────────────────────────
+// ─── Hero preview — Analytics dashboard ──────────────────────────────────────
+
+const revenueData: ChartTick[] = [
+  { timestamp: "2026-03-01", revenue: 9200 },
+  { timestamp: "2026-03-03", revenue: 11400 },
+  { timestamp: "2026-03-05", revenue: 10100 },
+  { timestamp: "2026-03-08", revenue: 13200 },
+  { timestamp: "2026-03-10", revenue: 12400 },
+  { timestamp: "2026-03-12", revenue: 15600 },
+  { timestamp: "2026-03-14", revenue: 14200 },
+  { timestamp: "2026-03-17", revenue: 16800 },
+  { timestamp: "2026-03-19", revenue: 15400 },
+  { timestamp: "2026-03-21", revenue: 18900 },
+  { timestamp: "2026-03-23", revenue: 17600 },
+  { timestamp: "2026-03-25", revenue: 20100 },
+  { timestamp: "2026-03-27", revenue: 21800 },
+  { timestamp: "2026-03-29", revenue: 20400 },
+  { timestamp: "2026-03-31", revenue: 23600 },
+]
+
+const usersData: ChartTick[] = [
+  { timestamp: "2026-03-18", users: 1840 },
+  { timestamp: "2026-03-19", users: 2210 },
+  { timestamp: "2026-03-20", users: 1980 },
+  { timestamp: "2026-03-21", users: 2560 },
+  { timestamp: "2026-03-22", users: 890  },
+  { timestamp: "2026-03-23", users: 760  },
+  { timestamp: "2026-03-24", users: 2940 },
+  { timestamp: "2026-03-25", users: 3120 },
+  { timestamp: "2026-03-26", users: 2880 },
+  { timestamp: "2026-03-27", users: 3400 },
+  { timestamp: "2026-03-28", users: 1020 },
+  { timestamp: "2026-03-29", users: 1100 },
+  { timestamp: "2026-03-30", users: 3760 },
+  { timestamp: "2026-03-31", users: 3580 },
+]
+
+const recentActivity = [
+  { name: "New subscription",  plan: "Pro",       amount: "+$49",  time: "2m ago"  },
+  { name: "Churn detected",    plan: "Starter",   amount: "-$19",  time: "14m ago" },
+  { name: "New subscription",  plan: "Business",  amount: "+$149", time: "31m ago" },
+  { name: "Plan upgrade",      plan: "Pro → Biz", amount: "+$100", time: "1h ago"  },
+]
 
 function HeroPreview() {
   return (
-    <div className="rounded-xl border border-white/10 bg-[#161616] overflow-hidden shadow-[0_32px_80px_rgba(0,0,0,0.6)]">
+    <div className="rounded-2xl border border-white/8 bg-[#111111] overflow-hidden shadow-[0_40px_100px_rgba(0,0,0,0.7)]">
       {/* Window chrome */}
-      <div className="flex items-center gap-1.5 px-4 py-3 border-b border-white/8 bg-[#121212]">
-        <span className="h-2.5 w-2.5 rounded-full bg-red-500/50" />
-        <span className="h-2.5 w-2.5 rounded-full bg-yellow-500/50" />
-        <span className="h-2.5 w-2.5 rounded-full bg-green-500/50" />
-        <span className="ml-auto font-mono text-[11px] text-white/30">dashboard.tsx</span>
+      <div className="flex items-center gap-1.5 px-5 py-3.5 border-b border-white/6 bg-[#0d0d0d]">
+        <span className="h-2.5 w-2.5 rounded-full bg-red-500/40" />
+        <span className="h-2.5 w-2.5 rounded-full bg-yellow-500/40" />
+        <span className="h-2.5 w-2.5 rounded-full bg-green-500/40" />
+        <span className="ml-auto font-mono text-[11px] text-white/20">
+          analytics · March 2026
+        </span>
       </div>
 
-      {/* Inner app — wraps in dark so components auto-use dark tokens */}
-      <div className="dark p-5 space-y-4 bg-[#161616]">
-        {/* Badge row */}
-        <div className="flex flex-wrap gap-1.5">
-          <Badge variant="success">Paid</Badge>
-          <Badge variant="warning">Pending</Badge>
-          <Badge variant="destructive">Refunded</Badge>
-          <Badge variant="default">Active</Badge>
+      <div className="dark bg-[#111111] p-4 space-y-3 relative">
+        {/* Bottom fade */}
+        <div className="pointer-events-none absolute bottom-0 left-0 right-0 h-36 z-10 rounded-b-2xl bg-gradient-to-t from-[#111111] via-[#111111]/80 to-transparent" />
+
+        {/* KPI metrics row */}
+        <div className="grid grid-cols-3 gap-3">
+          <ChartCard>
+            <div className="px-4 py-3">
+              <ChartMetric label="Revenue" value="$23.6k" diffValue="+18.4%" status="positive" />
+            </div>
+          </ChartCard>
+          <ChartCard>
+            <div className="px-4 py-3">
+              <ChartMetric label="Active users" value="3,580" diffValue="+12.1%" status="positive" />
+            </div>
+          </ChartCard>
+          <ChartCard>
+            <div className="px-4 py-3">
+              <ChartMetric label="Churn rate" value="1.8%" diffValue="-0.4%" status="positive" />
+            </div>
+          </ChartCard>
         </div>
 
-        {/* Stat card */}
-        <Card>
-          <CardContent className="p-4 space-y-2.5">
-            <div className="flex items-center justify-between text-sm">
-              <span className="text-muted-foreground">Revenue</span>
-              <span className="font-semibold">$48,249</span>
-            </div>
-            <Progress value={72} />
-            <div className="flex items-center gap-1 text-xs text-brand">
-              <TrendingUp className="h-3 w-3" />
-              <span>12.4% vs last month</span>
-            </div>
-          </CardContent>
-        </Card>
+        {/* Line chart + activity */}
+        <div className="grid grid-cols-5 gap-3">
+          <ChartCard className="col-span-3">
+            <ChartHeader align="start">
+              <ChartTitle>Revenue trend</ChartTitle>
+              <div className="flex gap-1">
+                <Badge variant="default" className="text-[10px] cursor-pointer">30d</Badge>
+                <Badge variant="outline" className="text-[10px] cursor-pointer">7d</Badge>
+              </div>
+            </ChartHeader>
+            <Chart>
+              <ChartContent>
+                <ChartLine
+                  data={revenueData}
+                  dataKey="revenue"
+                  showGrid
+                  showYAxis
+                  className="h-32"
+                  YAxisProps={{
+                    tickFormatter: (v) => `$${(v / 1000).toFixed(0)}k`,
+                    width: 36,
+                  }}
+                />
+              </ChartContent>
+            </Chart>
+          </ChartCard>
 
-        {/* Buttons */}
-        <div className="flex flex-wrap gap-2">
-          <Button type="primary" size="small">Deploy</Button>
-          <Button type="default" size="small">Preview</Button>
-          <Button type="outline" size="small">Cancel</Button>
+          <ChartCard className="col-span-2">
+            <ChartHeader align="start">
+              <ChartTitle>Recent activity</ChartTitle>
+            </ChartHeader>
+            <div className="px-4 pb-3 pt-2 space-y-2">
+              {recentActivity.map((item) => (
+                <div key={item.time + item.name} className="flex items-center justify-between gap-2">
+                  <div className="min-w-0">
+                    <p className="text-xs font-medium text-foreground truncate leading-snug">
+                      {item.name}
+                    </p>
+                    <p className="text-[10px] text-muted-foreground">{item.plan}</p>
+                  </div>
+                  <div className="text-right shrink-0">
+                    <p className={`text-xs font-semibold tabular-nums ${
+                      item.amount.startsWith("+") ? "text-brand" : "text-destructive"
+                    }`}>
+                      {item.amount}
+                    </p>
+                    <p className="text-[10px] text-muted-foreground">{item.time}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </ChartCard>
         </div>
 
-        {/* Admonition */}
-        <Admonition
-          type="warning"
-          title="OAuth Server is disabled"
-          description="Enable OAuth Server to make your project act as an identity provider for third-party apps."
-        />
+        {/* Bar chart */}
+        <ChartCard>
+          <ChartHeader align="start">
+            <ChartTitle>Daily active users</ChartTitle>
+            <Badge variant="success" className="text-[10px]">+12.1% vs last period</Badge>
+          </ChartHeader>
+          <Chart>
+            <ChartContent>
+              <ChartBar
+                data={usersData}
+                dataKey="users"
+                showGrid
+                showYAxis
+                className="h-24"
+                YAxisProps={{
+                  tickFormatter: (v) => `${(v / 1000).toFixed(1)}k`,
+                  width: 36,
+                }}
+              />
+            </ChartContent>
+          </Chart>
+        </ChartCard>
       </div>
     </div>
   )
 }
+
+// ─── Hero ─────────────────────────────────────────────────────────────────────
 
 function Hero({ onEnterDocs }: { onEnterDocs: () => void }) {
   return (
     <section
       className="relative overflow-hidden"
       style={{
-        backgroundColor: "#080808",
+        backgroundColor: "#070707",
         backgroundImage:
-          "radial-gradient(rgba(255,255,255,0.04) 1px, transparent 1px)",
+          "radial-gradient(rgba(255,255,255,0.03) 1px, transparent 1px)",
         backgroundSize: "28px 28px",
       }}
     >
-      {/* Ambient glow */}
+      {/* Glows */}
       <div
-        className="pointer-events-none absolute right-[15%] top-1/2 h-[600px] w-[600px] -translate-y-1/2 rounded-full blur-[140px]"
-        style={{ background: "hsl(45,93%,47%)", opacity: 0.12 }}
-      />
-      <div
-        className="pointer-events-none absolute left-[10%] bottom-0 h-[300px] w-[300px] rounded-full blur-[100px]"
-        style={{ background: "hsl(45,93%,47%)", opacity: 0.06 }}
+        className="pointer-events-none absolute left-1/2 top-0 h-[560px] w-[900px] -translate-x-1/2 rounded-full blur-[140px]"
+        style={{ background: "hsl(45,93%,47%)", opacity: 0.08 }}
       />
 
       {/* Nav */}
-      <nav className="relative z-10 mx-auto flex max-w-7xl items-center justify-between px-8 py-5">
-        <Logo light />
-        <Button type="outline" size="small" onClick={onEnterDocs}>
-          Browse components
-        </Button>
+      <nav className="relative z-10 mx-auto flex max-w-7xl items-center justify-between px-8 py-5 border-b border-white/5">
+        <BrandLogo imageClassName="h-9" />
+        <div className="flex items-center gap-4">
+          <span className="hidden sm:block text-sm text-white/30 font-medium">
+            Ofi Services
+          </span>
+          <Button type="outline" size="small" onClick={onEnterDocs}>
+            Browse components
+          </Button>
+        </div>
       </nav>
 
-      {/* Hero body */}
-      <div className="relative z-10 mx-auto max-w-7xl px-8 pb-28 pt-16">
-        <div className="grid grid-cols-1 items-center gap-16 lg:grid-cols-2">
-          {/* Left — copy */}
-          <div className="space-y-8">
-            <div className="inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-3 py-1 text-xs font-medium text-primary">
-              <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-primary" />
-              Open Source · MIT License
-            </div>
+      {/* Copy */}
+      <div className="relative z-10 mx-auto max-w-4xl px-8 pt-24 pb-14 text-center">
+        <div className="inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/8 px-4 py-1.5 text-xs font-medium text-primary mb-9">
+          <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-primary" />
+          React 18 · TypeScript · Tailwind CSS · Radix UI
+        </div>
 
-            <div className="space-y-5">
-              <h1 className="text-5xl font-bold leading-[1.08] tracking-tight bg-gradient-to-br from-white via-white/90 to-primary bg-clip-text text-transparent">
-                The design system built for modern products.
-              </h1>
-              <p className="max-w-md text-lg leading-relaxed text-white/50">
-                A complete set of accessible, composable UI components and
-                patterns — built on React, Tailwind CSS, and Radix UI
-                primitives.
-              </p>
-            </div>
+        <h1 className="text-5xl sm:text-6xl lg:text-[72px] font-bold leading-[1.04] tracking-tight mb-6">
+          <span className="bg-gradient-to-b from-white via-white/90 to-white/55 bg-clip-text text-transparent">
+            The frontend layer
+            <br />
+            for every Ofi
+          </span>
+          <br />
+          <span className="bg-gradient-to-r from-primary via-amber-300 to-yellow-400 bg-clip-text text-transparent">
+            AI Agent.
+          </span>
+        </h1>
 
-            <div className="flex flex-wrap gap-3">
-              <Button
-                type="primary"
-                size="large"
-                iconRight={<ArrowRight />}
-                onClick={onEnterDocs}
-              >
-                Browse components
-              </Button>
-              <Button type="outline" size="large">
-                View on GitHub
-              </Button>
-            </div>
+        <p className="text-lg sm:text-xl text-white/45 leading-relaxed max-w-2xl mx-auto mb-10">
+          A premium, on-brand component library for the agent builders at Ofi
+          Services. Ship dashboards, forms, and landing pages on day one — no
+          bespoke UI, no reinventing primitives.
+        </p>
 
-            <div className="flex flex-wrap items-center gap-5 text-xs text-white/35">
-              {["React 18", "TypeScript", "Tailwind CSS", "Radix UI"].map((tech) => (
-                <div key={tech} className="flex items-center gap-1.5">
-                  <Check className="h-3 w-3 text-primary" />
-                  {tech}
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* Right — live preview */}
-          <div className="relative">
-            <HeroPreview />
-          </div>
+        <div className="flex flex-wrap justify-center gap-3">
+          <Button
+            type="primary"
+            size="large"
+            iconRight={<ArrowRight />}
+            onClick={onEnterDocs}
+          >
+            Browse components
+          </Button>
+          <Button type="outline" size="large">
+            Read the agent playbook
+          </Button>
         </div>
       </div>
 
-      {/* Bottom divider */}
-      <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-primary/25 to-transparent" />
+      {/* Preview */}
+      <div className="relative z-10 mx-auto max-w-5xl px-8 pb-0">
+        <HeroPreview />
+      </div>
+
+      {/* Fade to bg */}
+      <div className="absolute bottom-0 left-0 right-0 h-40 pointer-events-none bg-gradient-to-t from-background to-transparent" />
     </section>
   )
 }
@@ -174,20 +336,21 @@ function Hero({ onEnterDocs }: { onEnterDocs: () => void }) {
 
 function StatsStrip() {
   const stats = [
-    { label: "Components", value: "19" },
-    { label: "Patterns", value: "3" },
-    { label: "Custom icons", value: "11" },
-    { label: "Accessible", value: "100%" },
+    { value: "44+", label: "UI primitives" },
+    { value: "15",  label: "Pattern components" },
+    { value: "13",  label: "Custom icons" },
+    { value: "3",   label: "Composable layers" },
+    { value: "1",   label: "System for every agent" },
   ]
 
   return (
     <div className="border-y border-border bg-card">
       <div className="mx-auto max-w-7xl px-8 py-8">
-        <div className="grid grid-cols-2 gap-8 sm:grid-cols-4">
+        <div className="grid grid-cols-2 gap-8 sm:grid-cols-3 lg:grid-cols-5">
           {stats.map((s, i) => (
             <div key={s.label} className="relative text-center">
               {i > 0 && (
-                <div className="absolute -left-4 top-1/2 hidden h-10 w-px -translate-y-1/2 bg-border sm:block" />
+                <div className="absolute -left-4 top-1/2 hidden h-10 w-px -translate-y-1/2 bg-border lg:block" />
               )}
               <div className="text-3xl font-bold tracking-tight text-foreground">
                 {s.value}
@@ -201,6 +364,118 @@ function StatsStrip() {
   )
 }
 
+// ─── About / Architecture ─────────────────────────────────────────────────────
+
+function About() {
+  const layers = [
+    {
+      icon: Package,
+      label: "Layer 1 — Primitives",
+      name: "components/ui/",
+      description:
+        "Vendored shadcn/ui components built on Radix UI. Copied directly into your project so you own the source — edit freely, no dependency lock-in.",
+      items: ["Button", "Input", "Badge", "Dialog", "Select", "Table", "Tabs", "…and 37 more"],
+    },
+    {
+      icon: Layers,
+      label: "Layer 2 — Patterns",
+      name: "components/ui-patterns/",
+      description:
+        "Opinionated compositions that wire up react-hook-form, recharts, or custom logic on top of the primitives. Higher-level building blocks ready to drop in.",
+      items: ["Chart toolkit", "Multi-select", "Admonition", "Form layouts", "Data inputs", "Metric card"],
+    },
+    {
+      icon: Zap,
+      label: "Layer 3 — Icons",
+      name: "components/icons/",
+      description:
+        "Custom SVG icons via a createIcon factory. Every icon defaults to 24px, inherits stroke from currentColor, and accepts all standard SVG props.",
+      items: ["TableEditor", "Reports", "SQL", "Auth", "Functions", "…and more"],
+    },
+  ]
+
+  return (
+    <section className="py-28 px-8 bg-background">
+      <div className="mx-auto max-w-7xl">
+        <div className="mb-16 max-w-2xl">
+          <SectionLabel>About the project</SectionLabel>
+          <div className="mt-4 mb-5">
+            <SectionHeading>
+              One system.
+              <br />
+              Three composable layers.
+            </SectionHeading>
+          </div>
+          <SectionSub>
+            OfiUI is the in-house React + TypeScript design system that powers
+            the frontends of every AI Agent shipped by Ofi Services — from
+            low-level primitives to high-level patterns, all on-brand by
+            default.
+          </SectionSub>
+        </div>
+
+        <div className="grid grid-cols-1 gap-5 sm:grid-cols-3">
+          {layers.map((layer) => (
+            <div
+              key={layer.label}
+              className="group rounded-2xl border border-border bg-card p-7 space-y-5 transition-all duration-200 hover:border-primary/30 hover:shadow-lg hover:shadow-primary/5"
+            >
+              <div className="flex items-center gap-3">
+                <div className="h-9 w-9 rounded-lg bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
+                  <layer.icon className="h-4 w-4 text-primary" />
+                </div>
+                <div>
+                  <p className="text-[10px] font-semibold uppercase tracking-widest text-muted-foreground">
+                    {layer.label}
+                  </p>
+                  <code className="text-xs font-mono text-foreground/70">
+                    {layer.name}
+                  </code>
+                </div>
+              </div>
+
+              <p className="text-sm leading-relaxed text-muted-foreground">
+                {layer.description}
+              </p>
+
+              <ul className="space-y-1.5">
+                {layer.items.map((item) => (
+                  <li key={item} className="flex items-center gap-2 text-xs text-muted-foreground">
+                    <span className="h-1 w-1 rounded-full bg-primary/60 shrink-0" />
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
+
+        <div className="mt-12 rounded-2xl border border-border bg-muted/40 p-8 grid grid-cols-1 gap-6 sm:grid-cols-3">
+          {[
+            {
+              heading: "Brand consistency",
+              body: "Colors, typography, and tone aligned with Ofi Services' visual identity. Every agent surface looks like it came from the same team — because it did.",
+            },
+            {
+              heading: "Speed for agent builders",
+              body: "Pre-built primitives and patterns mean agents ship with a polished frontend from day one. No bespoke UI, no reinventing components.",
+            },
+            {
+              heading: "Quality by default",
+              body: "No more ad-hoc frontends. Every dashboard, form, and landing page looks and feels the same regardless of who built the agent.",
+            },
+          ].map(({ heading, body }) => (
+            <div key={heading} className="space-y-2">
+              <h4 className="text-sm font-semibold">{heading}</h4>
+              <p className="text-sm leading-relaxed text-muted-foreground">{body}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  )
+}
+
 // ─── Features ────────────────────────────────────────────────────────────────
 
 function Features() {
@@ -209,61 +484,224 @@ function Features() {
       icon: Shield,
       title: "Accessible by default",
       description:
-        "Every component follows WAI-ARIA patterns via Radix UI. Keyboard navigation and screen reader support come out of the box.",
+        "Every component follows WAI-ARIA patterns via Radix UI. Keyboard navigation, focus management, and screen reader support come out of the box.",
+      tag: "WAI-ARIA",
     },
     {
       icon: Palette,
       title: "Fully themeable",
       description:
-        "Built on CSS custom properties. Swap the entire color palette from a single set of variables. Dark mode included.",
+        "Theming is driven by HSL CSS custom properties. Swap the entire color palette from a single set of variables in index.css. Dark mode is class-based and included.",
+      tag: "CSS variables",
     },
     {
       icon: Code2,
       title: "Type-safe throughout",
       description:
-        "First-class TypeScript with strict prop types, autocompletion, and inline docs on every component and pattern.",
+        "First-class TypeScript with strict prop types. Variants are declared with class-variance-authority so every variant and combination is inferred and autocompleted.",
+      tag: "TypeScript",
     },
     {
       icon: Layers,
       title: "Composable primitives",
       description:
-        "Small, focused components that combine naturally into complex patterns. Use the pieces you need, skip the rest.",
+        "Small, focused components that combine naturally into complex patterns. Each layer only depends on the layer below it — use the pieces you need, skip the rest.",
+      tag: "Composable",
     },
   ]
 
   return (
-    <section className="py-24 px-8">
+    <section className="py-28 px-8 bg-muted/30">
       <div className="mx-auto max-w-7xl">
-        <div className="mx-auto mb-16 max-w-xl space-y-3 text-center">
-          <p className="text-xs font-semibold uppercase tracking-widest text-primary">
-            Why ofi design
-          </p>
-          <h2 className="text-3xl font-bold tracking-tight">
-            Built on solid foundations
-          </h2>
-          <p className="text-muted-foreground">
-            Every decision made to help you ship faster without sacrificing
-            quality or accessibility.
-          </p>
+        <div className="mb-16 max-w-2xl">
+          <SectionLabel>Why OfiUI</SectionLabel>
+          <div className="mt-4 mb-5">
+            <SectionHeading>Built for agent builders.</SectionHeading>
+          </div>
+          <SectionSub>
+            Every decision tuned so an agent builder can ship a polished,
+            on-brand frontend faster — without sacrificing quality,
+            consistency, or accessibility.
+          </SectionSub>
         </div>
 
-        <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {features.map((f) => (
             <div
               key={f.title}
-              className="group rounded-xl border border-border bg-card p-6 space-y-4 transition-all duration-200 hover:border-primary/40 hover:shadow-md hover:shadow-primary/5"
+              className="group rounded-2xl border border-border bg-card p-7 space-y-5 transition-all duration-200 hover:border-primary/40 hover:shadow-lg hover:shadow-primary/5"
             >
-              <div className="h-9 w-9 rounded-lg bg-primary/10 flex items-center justify-center transition-colors group-hover:bg-primary/20">
-                <f.icon className="h-4 w-4 text-primary" />
+              <div className="flex items-start justify-between">
+                <div className="h-9 w-9 rounded-lg bg-primary/10 flex items-center justify-center transition-colors group-hover:bg-primary/20">
+                  <f.icon className="h-4 w-4 text-primary" />
+                </div>
+                <Badge variant="outline" className="text-[10px]">{f.tag}</Badge>
               </div>
-              <div className="space-y-1.5">
-                <h3 className="text-sm font-semibold">{f.title}</h3>
-                <p className="text-sm leading-relaxed text-muted-foreground">
-                  {f.description}
-                </p>
+              <div className="space-y-2">
+                <h3 className="text-sm font-semibold leading-snug">{f.title}</h3>
+                <p className="text-sm leading-relaxed text-muted-foreground">{f.description}</p>
               </div>
             </div>
           ))}
+        </div>
+      </div>
+    </section>
+  )
+}
+
+// ─── Getting started ──────────────────────────────────────────────────────────
+
+function GettingStarted() {
+  return (
+    <section
+      className="relative overflow-hidden py-28 px-8"
+      style={{
+        backgroundColor: "#080808",
+        backgroundImage:
+          "radial-gradient(rgba(255,255,255,0.03) 1px, transparent 1px)",
+        backgroundSize: "28px 28px",
+      }}
+    >
+      <div
+        className="pointer-events-none absolute left-0 top-1/2 h-[500px] w-[500px] -translate-y-1/2 rounded-full blur-[120px]"
+        style={{ background: "hsl(45,93%,47%)", opacity: 0.07 }}
+      />
+
+      <div className="relative z-10 mx-auto max-w-7xl">
+        <div className="grid grid-cols-1 gap-16 items-start lg:grid-cols-2">
+          <div className="space-y-8">
+            <div>
+              <SectionLabel>Getting started</SectionLabel>
+              <div className="mt-4 mb-5">
+                <h2 className="text-3xl sm:text-4xl font-bold tracking-tight leading-[1.15] text-white">
+                  Up and running
+                  <br />
+                  in minutes.
+                </h2>
+              </div>
+              <p className="text-base leading-relaxed text-white/45 max-w-md">
+                Install the package, wire up the Tailwind preset, and import
+                the stylesheet. Every component is ready to use — no cloning,
+                no configuration overhead.
+              </p>
+            </div>
+
+            <div className="space-y-5">
+              {[
+                {
+                  step: "01",
+                  title: "Install the package",
+                  detail: "npm install @daivymoralesofi/ofiui adds the full component library to your project.",
+                },
+                {
+                  step: "02",
+                  title: "Add the Tailwind preset",
+                  detail: "Extend your tailwind.config.js with the OfiUI preset to pull in all design tokens.",
+                },
+                {
+                  step: "03",
+                  title: "Import and ship",
+                  detail: "Import the stylesheet once, then use any component directly from @daivymoralesofi/ofiui.",
+                },
+              ].map(({ step, title, detail }) => (
+                <div key={step} className="flex gap-5">
+                  <div className="shrink-0 w-8 h-8 rounded-full border border-primary/30 bg-primary/8 flex items-center justify-center">
+                    <span className="font-mono text-[10px] font-bold text-primary">{step}</span>
+                  </div>
+                  <div>
+                    <p className="text-sm font-semibold text-white/80">{title}</p>
+                    <p className="text-sm text-white/35 mt-0.5">{detail}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className="space-y-3">
+            <CodeBlock label="terminal" useTerminal>
+              <span className="text-white/25">$</span>
+              <span className="text-white/70"> npm install</span>
+              <span className="text-primary/70"> @daivymoralesofi/ofiui</span>
+              {"\n"}
+              <span className="text-white/25">$</span>
+              <span className="text-white/70"> npm install -D tailwindcss postcss autoprefixer</span>
+              {"\n\n"}
+              <span className="text-white/20">{"  "}added 142 packages in 3.2s</span>
+              {"\n"}
+              <span className="text-white/20">{"  "}✓ @daivymoralesofi/ofiui@0.0.1</span>
+            </CodeBlock>
+
+            <CodeBlock label="button.usage.tsx">
+              <span className="text-primary/60">import</span>
+              <span className="text-white/65"> {"{ Button, Badge }"} </span>
+              <span className="text-primary/60">from</span>
+              <span className="text-amber-300/60"> "@daivymoralesofi/ofiui"</span>
+              {"\n\n"}
+              <span className="text-primary/60">export function</span>
+              <span className="text-white/80"> MyPage</span>
+              <span className="text-white/50">() {"{"}</span>
+              {"\n"}
+              <span className="text-white/50">{"  "}return (</span>
+              {"\n"}
+              <span className="text-white/50">{"    <"}</span>
+              <span className="text-primary/70">Button</span>
+              <span className="text-amber-300/60"> type</span>
+              <span className="text-white/50">="</span>
+              <span className="text-white/70">primary</span>
+              <span className="text-white/50">" </span>
+              <span className="text-amber-300/60">size</span>
+              <span className="text-white/50">="</span>
+              <span className="text-white/70">large</span>
+              <span className="text-white/50">{">"}</span>
+              {"\n"}
+              <span className="text-white/50">{"      "}</span>
+              <span className="text-white/65">Get started</span>
+              {"\n"}
+              <span className="text-white/50">{"    </"}</span>
+              <span className="text-primary/70">Button</span>
+              <span className="text-white/50">{">"}</span>
+              {"\n"}
+              <span className="text-white/50">{"  })"}</span>
+              {"\n"}
+              <span className="text-white/50">{"}"}</span>
+            </CodeBlock>
+
+            <CodeBlock label="index.css — tokens">
+              <span className="text-white/35">:root {"{"}</span>
+              {"\n"}
+              <span className="text-white/35">{"  "}</span>
+              <span className="text-primary/60">--background</span>
+              <span className="text-white/35">: </span>
+              <span className="text-white/60">0 0% 100%</span>
+              <span className="text-white/35">;</span>
+              {"\n"}
+              <span className="text-white/35">{"  "}</span>
+              <span className="text-primary/60">--foreground</span>
+              <span className="text-white/35">: </span>
+              <span className="text-white/60">0 0% 9%</span>
+              <span className="text-white/35">;</span>
+              {"\n"}
+              <span className="text-white/35">{"  "}</span>
+              <span className="text-primary/60">--primary</span>
+              <span className="text-white/35">: </span>
+              <span className="text-amber-300/70">45 93% 47%</span>
+              <span className="text-white/35">;</span>
+              {"\n"}
+              <span className="text-white/35">{"  "}</span>
+              <span className="text-primary/60">--radius</span>
+              <span className="text-white/35">: </span>
+              <span className="text-white/60">0.5rem</span>
+              <span className="text-white/35">;</span>
+              {"\n"}
+              <span className="text-white/35">{"  "}/* … */</span>
+              {"\n"}
+              <span className="text-white/35">{"}"}</span>
+              {"\n\n"}
+              <span className="text-white/25">.dark {"{"}</span>
+              <span className="text-white/20"> /* same keys, dark values */ </span>
+              <span className="text-white/25">{"}"}</span>
+            </CodeBlock>
+          </div>
         </div>
       </div>
     </section>
@@ -275,35 +713,32 @@ function Features() {
 function ComponentShowcase() {
   return (
     <section
-      className="dark relative overflow-hidden py-24 px-8"
+      className="dark relative overflow-hidden py-28 px-8"
       style={{
         backgroundColor: "#090909",
         backgroundImage:
-          "radial-gradient(rgba(255,255,255,0.035) 1px, transparent 1px)",
+          "radial-gradient(rgba(255,255,255,0.03) 1px, transparent 1px)",
         backgroundSize: "28px 28px",
       }}
     >
       <div className="mx-auto max-w-7xl">
-        <div className="mx-auto mb-16 max-w-xl space-y-3 text-center">
-          <p className="text-xs font-semibold uppercase tracking-widest text-primary">
-            Component library
-          </p>
-          <h2 className="text-3xl font-bold tracking-tight text-foreground">
-            Every component you need
-          </h2>
-          <p className="text-muted-foreground">
+        <div className="mb-16">
+          <SectionLabel>Component library</SectionLabel>
+          <div className="mt-4 mb-5">
+            <h2 className="text-3xl sm:text-4xl font-bold tracking-tight leading-[1.15] text-foreground">
+              Every component you need.
+            </h2>
+          </div>
+          <p className="text-base leading-relaxed text-muted-foreground max-w-lg">
             Handcrafted to work together — from simple inputs to complex
-            visualisations.
+            visualisations. Live, interactive, and styled with your tokens.
           </p>
         </div>
 
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {/* Buttons — spans 2 cols */}
           <Card className="sm:col-span-2 lg:col-span-2">
             <CardContent className="p-6 space-y-4">
-              <p className="text-[11px] font-semibold uppercase tracking-widest text-muted-foreground">
-                Button
-              </p>
+              <p className="text-[10px] font-semibold uppercase tracking-widest text-muted-foreground">Button</p>
               <div className="space-y-2.5">
                 <div className="flex flex-wrap gap-2">
                   <Button type="primary" size="small">Primary</Button>
@@ -323,12 +758,9 @@ function ComponentShowcase() {
             </CardContent>
           </Card>
 
-          {/* Badges */}
           <Card>
             <CardContent className="p-6 space-y-4">
-              <p className="text-[11px] font-semibold uppercase tracking-widest text-muted-foreground">
-                Badge
-              </p>
+              <p className="text-[10px] font-semibold uppercase tracking-widest text-muted-foreground">Badge</p>
               <div className="flex flex-wrap gap-1.5">
                 <Badge variant="default">Default</Badge>
                 <Badge variant="secondary">Secondary</Badge>
@@ -340,12 +772,9 @@ function ComponentShowcase() {
             </CardContent>
           </Card>
 
-          {/* Input */}
           <Card>
             <CardContent className="p-6 space-y-4">
-              <p className="text-[11px] font-semibold uppercase tracking-widest text-muted-foreground">
-                Input
-              </p>
+              <p className="text-[10px] font-semibold uppercase tracking-widest text-muted-foreground">Input</p>
               <div className="space-y-2.5">
                 <div className="space-y-1">
                   <Label className="text-xs" htmlFor="sc-email">Email address</Label>
@@ -359,12 +788,9 @@ function ComponentShowcase() {
             </CardContent>
           </Card>
 
-          {/* Progress */}
           <Card>
             <CardContent className="p-6 space-y-4">
-              <p className="text-[11px] font-semibold uppercase tracking-widest text-muted-foreground">
-                Progress
-              </p>
+              <p className="text-[10px] font-semibold uppercase tracking-widest text-muted-foreground">Progress</p>
               <div className="space-y-3">
                 {[24, 51, 72, 91].map((v) => (
                   <div key={v} className="space-y-1">
@@ -379,12 +805,9 @@ function ComponentShowcase() {
             </CardContent>
           </Card>
 
-          {/* Controls */}
           <Card>
             <CardContent className="p-6 space-y-4">
-              <p className="text-[11px] font-semibold uppercase tracking-widest text-muted-foreground">
-                Controls
-              </p>
+              <p className="text-[10px] font-semibold uppercase tracking-widest text-muted-foreground">Controls</p>
               <div className="space-y-3">
                 <div className="flex items-center justify-between">
                   <Label className="text-xs">Email notifications</Label>
@@ -394,7 +817,8 @@ function ComponentShowcase() {
                   <Label className="text-xs">Dark mode</Label>
                   <Switch />
                 </div>
-                <div className="flex items-center gap-2 pt-1">
+                <Separator />
+                <div className="flex items-center gap-2">
                   <Checkbox id="lp-cb1" defaultChecked />
                   <Label htmlFor="lp-cb1" className="text-xs">Remember me</Label>
                 </div>
@@ -406,34 +830,20 @@ function ComponentShowcase() {
             </CardContent>
           </Card>
 
-          {/* Avatar */}
           <Card>
             <CardContent className="p-6 space-y-4">
-              <p className="text-[11px] font-semibold uppercase tracking-widest text-muted-foreground">
-                Avatar
-              </p>
+              <p className="text-[10px] font-semibold uppercase tracking-widest text-muted-foreground">Avatar</p>
               <div className="space-y-5">
-                {/* Stacked row */}
                 <div className="flex -space-x-2">
                   {["DM", "JD", "SK", "AB", "TK"].map((initials, i) => (
-                    <Avatar
-                      key={initials}
-                      className="h-8 w-8 border-2 border-card"
-                      style={{ zIndex: 5 - i }}
-                    >
-                      <AvatarFallback className="text-[10px]">
-                        {initials}
-                      </AvatarFallback>
+                    <Avatar key={initials} className="h-8 w-8 border-2 border-card" style={{ zIndex: 5 - i }}>
+                      <AvatarFallback className="text-[10px]">{initials}</AvatarFallback>
                     </Avatar>
                   ))}
-                  <div
-                    className="flex h-8 w-8 items-center justify-center rounded-full border-2 border-card bg-muted text-[10px] text-muted-foreground"
-                    style={{ zIndex: 0 }}
-                  >
+                  <div className="flex h-8 w-8 items-center justify-center rounded-full border-2 border-card bg-muted text-[10px] text-muted-foreground" style={{ zIndex: 0 }}>
                     +12
                   </div>
                 </div>
-                {/* Profile row */}
                 <div className="flex items-center gap-3">
                   <Avatar>
                     <AvatarFallback>DM</AvatarFallback>
@@ -452,79 +862,221 @@ function ComponentShowcase() {
   )
 }
 
-// ─── Admonition highlight ─────────────────────────────────────────────────────
+// ─── Theming section ──────────────────────────────────────────────────────────
 
-function AdmonitionHighlight({ onEnterDocs }: { onEnterDocs: () => void }) {
+function ThemingSection() {
+  const tokens = [
+    { name: "--background",  value: "0 0% 100%",   swatch: "bg-white border"    },
+    { name: "--foreground",  value: "0 0% 9%",     swatch: "bg-neutral-900"     },
+    { name: "--primary",     value: "45 93% 47%",  swatch: "bg-amber-500"       },
+    { name: "--card",        value: "0 0% 100%",   swatch: "bg-white border"    },
+    { name: "--muted",       value: "0 0% 96%",    swatch: "bg-neutral-100 border" },
+    { name: "--destructive", value: "0 74% 42%",   swatch: "bg-red-700"         },
+  ]
+
   return (
-    <section className="py-24 px-8 bg-muted/40">
+    <section className="py-28 px-8 bg-background">
+      <div className="mx-auto max-w-7xl">
+        <div className="grid grid-cols-1 gap-16 items-start lg:grid-cols-2">
+          <div className="space-y-8">
+            <div>
+              <SectionLabel>Theming</SectionLabel>
+              <div className="mt-4 mb-5">
+                <SectionHeading>
+                  One palette.
+                  <br />
+                  Every mode.
+                </SectionHeading>
+              </div>
+              <SectionSub>
+                All colors are HSL CSS custom properties declared in index.css
+                and mapped to Tailwind utilities. Adding a new theme means
+                changing a single file — no JavaScript required.
+              </SectionSub>
+            </div>
+
+            <ul className="space-y-3">
+              {[
+                {
+                  icon: Moon,
+                  title: "Dark mode built in",
+                  detail: "Class-based toggle. Add dark to any ancestor and all semantic utilities flip instantly.",
+                },
+                {
+                  icon: Palette,
+                  title: "Semantic utilities",
+                  detail: "Use bg-background, text-foreground, border-border — never hard-code hex values.",
+                },
+                {
+                  icon: Zap,
+                  title: "Static brand palette",
+                  detail: "The brand-* scale is reserved for logos and marketing surfaces, not theme-sensitive UI.",
+                },
+              ].map(({ icon: Icon, title, detail }) => (
+                <li key={title} className="flex items-start gap-3">
+                  <div className="shrink-0 h-7 w-7 rounded-md bg-primary/10 flex items-center justify-center mt-0.5">
+                    <Icon className="h-3.5 w-3.5 text-primary" />
+                  </div>
+                  <div>
+                    <p className="text-sm font-semibold">{title}</p>
+                    <p className="text-sm text-muted-foreground mt-0.5">{detail}</p>
+                  </div>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div className="rounded-2xl border border-border bg-card overflow-hidden">
+            <div className="px-5 py-4 border-b border-border flex items-center justify-between">
+              <p className="text-[11px] font-semibold uppercase tracking-widest text-muted-foreground">
+                Design tokens
+              </p>
+              <Badge variant="outline" className="text-[10px]">index.css</Badge>
+            </div>
+            <div className="divide-y divide-border">
+              {tokens.map(({ name, value, swatch }) => (
+                <div
+                  key={name}
+                  className="flex items-center justify-between px-5 py-3 hover:bg-muted/40 transition-colors"
+                >
+                  <div className="flex items-center gap-3">
+                    <div className={`h-5 w-5 rounded shrink-0 ${swatch}`} />
+                    <code className="text-xs font-mono text-foreground">{name}</code>
+                  </div>
+                  <code className="text-xs font-mono text-muted-foreground">{value}</code>
+                </div>
+              ))}
+            </div>
+            <div className="px-5 py-3 border-t border-border bg-muted/30">
+              <p className="text-xs text-muted-foreground">
+                + 18 more tokens in <code className="font-mono">index.css</code>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  )
+}
+
+// ─── Patterns section ─────────────────────────────────────────────────────────
+
+function PatternsSection({ onEnterDocs }: { onEnterDocs: () => void }) {
+  return (
+    <section className="py-28 px-8 bg-muted/30">
       <div className="mx-auto max-w-7xl">
         <div className="grid grid-cols-1 items-center gap-16 lg:grid-cols-2">
-          {/* Left — copy */}
-          <div className="space-y-6">
-            <p className="text-xs font-semibold uppercase tracking-widest text-primary">
-              Patterns
-            </p>
-            <h2 className="text-3xl font-bold tracking-tight">
-              Smart patterns, ready to use.
-            </h2>
-            <p className="leading-relaxed text-muted-foreground">
-              Beyond primitives — higher-level patterns like{" "}
-              <span className="font-medium text-foreground">Admonition</span>{" "}
-              give you consistent callouts, multi-selects, and chart layouts
-              without wiring things up from scratch.
-            </p>
-            <ul className="space-y-2 text-sm text-muted-foreground">
+          <div className="space-y-7">
+            <div>
+              <SectionLabel>Patterns</SectionLabel>
+              <div className="mt-4 mb-5">
+                <SectionHeading>
+                  Smart compositions,
+                  <br />
+                  ready to use.
+                </SectionHeading>
+              </div>
+              <SectionSub>
+                Beyond primitives — higher-level patterns like{" "}
+                <span className="font-medium text-foreground">Admonition</span>,{" "}
+                <span className="font-medium text-foreground">Multi-select</span>, and{" "}
+                <span className="font-medium text-foreground">Chart toolkit</span>{" "}
+                give you consistent callouts, selectors, and data visualisations
+                without wiring things up from scratch.
+              </SectionSub>
+            </div>
+
+            <ul className="space-y-2 text-sm">
               {[
-                "Three semantic types: default, warning, destructive",
-                "Horizontal, vertical, and container-responsive layouts",
-                "Sandwiched inside Card or Dialog with no extra markup",
+                "Admonition — 3 semantic types, 3 layouts",
+                "Chart toolkit — compound API over recharts",
+                "Multi-select — Radix Popover + Command",
+                "Form layouts — react-hook-form field arrays",
+                "Metric card, empty state, error display",
+                "Inner side menu, page layout, filter bar",
               ].map((item) => (
-                <li key={item} className="flex items-start gap-2">
+                <li key={item} className="flex items-start gap-2 text-muted-foreground">
                   <Check className="mt-0.5 h-4 w-4 shrink-0 text-primary" />
                   {item}
                 </li>
               ))}
             </ul>
+
             <Button type="default" iconRight={<ArrowRight />} onClick={onEnterDocs}>
               Browse all patterns
             </Button>
           </div>
 
-          {/* Right — live demos */}
           <div className="space-y-3">
             <Admonition
               type="default"
               layout="horizontal"
               title="OAuth Server is disabled"
               description="Enable OAuth Server to make your project act as an identity provider for third-party applications."
-              actions={
-                <Button type="default" size="small">
-                  Settings
-                </Button>
-              }
+              actions={<Button type="default" size="small">Settings</Button>}
             />
             <Admonition
               type="warning"
               layout="horizontal"
               title="Set up custom SMTP"
-              description="You're using the built-in email service. This service has rate limits."
-              actions={
-                <Button type="default" size="small">
-                  Set up SMTP
-                </Button>
-              }
+              description="You're using the built-in email service. This service has rate limits that may affect delivery."
+              actions={<Button type="default" size="small">Set up SMTP</Button>}
             />
             <Admonition
               type="destructive"
               layout="horizontal"
               title="This action is irreversible"
               description="All project data will be permanently deleted from our servers."
-              actions={
-                <Button type="danger" size="small">
-                  Delete
-                </Button>
-              }
+              actions={<Button type="danger" size="small">Delete project</Button>}
             />
+          </div>
+        </div>
+      </div>
+    </section>
+  )
+}
+
+// ─── Author ───────────────────────────────────────────────────────────────────
+
+function AuthorSection() {
+  return (
+    <section className="py-28 px-8 bg-background">
+      <div className="mx-auto max-w-7xl">
+        <div className="max-w-2xl mx-auto text-center space-y-10">
+          <div>
+            <SectionLabel>Built by</SectionLabel>
+            <div className="mt-4">
+              <SectionHeading>Meet the author.</SectionHeading>
+            </div>
+          </div>
+
+          <div className="rounded-2xl border border-border bg-card p-8 flex flex-col sm:flex-row items-center gap-7 text-left">
+            <img
+              src="/daivy.png"
+              alt="Daivy Morales"
+              className="h-24 w-24 rounded-full object-cover shrink-0 ring-2 ring-primary/20"
+            />
+            <div className="space-y-3 min-w-0">
+              <div>
+                <h3 className="text-xl font-bold tracking-tight">Daivy Morales</h3>
+                <p className="text-sm text-muted-foreground mt-0.5">
+                  AI &amp; Innovation Intern · Ofi Services · Latin America
+                </p>
+              </div>
+              <p className="text-sm leading-relaxed text-muted-foreground">
+                Daivy is part of the Ofi Services tech team in Latam, where he
+                works on AI Agents and the internal tooling that powers them.
+                OfiUI started as a personal initiative to give every agent a
+                consistent, premium frontend — and grew into the system you're
+                looking at now.
+              </p>
+              <a
+                href="mailto:d.morales@ofiservices.com"
+                className="inline-flex items-center gap-1.5 text-sm font-medium text-primary hover:text-primary/80 transition-colors"
+              >
+                d.morales@ofiservices.com
+              </a>
+            </div>
           </div>
         </div>
       </div>
@@ -537,42 +1089,55 @@ function AdmonitionHighlight({ onEnterDocs }: { onEnterDocs: () => void }) {
 function CTASection({ onEnterDocs }: { onEnterDocs: () => void }) {
   return (
     <section
-      className="relative overflow-hidden py-28 px-8"
+      className="relative overflow-hidden py-32 px-8"
       style={{
-        backgroundColor: "#080808",
+        backgroundColor: "#070707",
         backgroundImage:
-          "radial-gradient(rgba(255,255,255,0.04) 1px, transparent 1px)",
+          "radial-gradient(rgba(255,255,255,0.03) 1px, transparent 1px)",
         backgroundSize: "28px 28px",
       }}
     >
-      {/* Central glow */}
       <div
-        className="pointer-events-none absolute left-1/2 top-1/2 h-80 w-80 -translate-x-1/2 -translate-y-1/2 rounded-full blur-[100px]"
+        className="pointer-events-none absolute left-1/2 top-1/2 h-96 w-96 -translate-x-1/2 -translate-y-1/2 rounded-full blur-[120px]"
         style={{ background: "hsl(45,93%,47%)", opacity: 0.18 }}
       />
 
-      <div className="relative z-10 mx-auto max-w-2xl space-y-7 text-center">
-        <div className="space-y-3">
-          <h2 className="text-4xl font-bold tracking-tight text-white">
-            Start building today.
+      <div className="relative z-10 mx-auto max-w-3xl text-center space-y-8">
+        <div className="space-y-4">
+          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-primary">
+            Internal · Ofi Services
+          </p>
+          <h2 className="text-4xl sm:text-5xl font-bold tracking-tight text-white leading-[1.1]">
+            Ship your next agent today.
           </h2>
-          <p className="text-lg text-white/45">
-            Open source and free to use. Copy the components you need and make
-            them yours.
+          <p className="text-lg text-white/40 leading-relaxed max-w-lg mx-auto">
+            Pull from the system, drop in the patterns, and let the design
+            system handle the polish. You focus on the agent — we handle the
+            frontend.
           </p>
         </div>
+
         <div className="flex flex-wrap justify-center gap-3">
-          <Button
-            type="primary"
-            size="large"
-            iconRight={<ArrowRight />}
-            onClick={onEnterDocs}
-          >
+          <Button type="primary" size="large" iconRight={<ArrowRight />} onClick={onEnterDocs}>
             Browse components
           </Button>
           <Button type="outline" size="large">
-            View on GitHub
+            Read the agent playbook
           </Button>
+        </div>
+
+        <div className="flex flex-wrap justify-center items-center gap-6 pt-2">
+          {[
+            { icon: Package, label: "On-brand by default" },
+            { icon: Code2,   label: "TypeScript first" },
+            { icon: Shield,  label: "WAI-ARIA" },
+            { icon: Moon,    label: "Dark mode" },
+          ].map(({ icon: Icon, label }) => (
+            <div key={label} className="flex items-center gap-2 text-xs text-white/25">
+              <Icon className="h-3.5 w-3.5" />
+              {label}
+            </div>
+          ))}
         </div>
       </div>
     </section>
@@ -582,17 +1147,63 @@ function CTASection({ onEnterDocs }: { onEnterDocs: () => void }) {
 // ─── Footer ───────────────────────────────────────────────────────────────────
 
 function Footer() {
+  const links = [
+    { group: "System",  items: ["Components", "Patterns", "Icons", "Theming"] },
+    { group: "Stack",   items: ["React 18", "TypeScript 5", "Tailwind CSS 3", "Radix UI"] },
+    { group: "Ofi",     items: ["Agent playbook", "Process mining", "Automation services", "Contributing"] },
+  ]
+
   return (
     <footer
-      className="border-t px-8 py-8"
-      style={{ borderColor: "rgba(255,255,255,0.07)", backgroundColor: "#080808" }}
+      className="border-t px-8 pt-14 pb-10"
+      style={{ borderColor: "rgba(255,255,255,0.06)", backgroundColor: "#070707" }}
     >
-      <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-4 sm:flex-row">
-        <Logo light />
-        <p className="text-xs text-white/30">
-          Built with React · TypeScript · Tailwind CSS · Radix UI
-        </p>
-        <p className="text-xs text-white/30">MIT License</p>
+      <div className="mx-auto max-w-7xl">
+        <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-4 mb-14">
+          <div className="space-y-4">
+            <BrandLogo imageClassName="h-8" />
+            <p className="text-sm text-white/30 leading-relaxed max-w-xs">
+              The in-house design system that powers the frontend layer of
+              every AI Agent shipped by Ofi Services.
+            </p>
+            <p className="text-xs text-white/20">Internal · Ofi Services</p>
+          </div>
+
+          {links.map(({ group, items }) => (
+            <div key={group}>
+              <p className="text-xs font-semibold uppercase tracking-widest text-white/25 mb-4">
+                {group}
+              </p>
+              <ul className="space-y-2.5">
+                {items.map((item) => (
+                  <li key={item}>
+                    <span className="text-sm text-white/35 hover:text-white/60 transition-colors cursor-pointer">
+                      {item}
+                    </span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
+
+        <Separator style={{ backgroundColor: "rgba(255,255,255,0.05)" }} className="mb-8" />
+
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-3">
+          <p className="text-xs text-white/20">
+            Built with React · TypeScript · Tailwind CSS · Radix UI
+          </p>
+          <p className="text-xs text-white/20">
+            Designed &amp; built by{" "}
+            <a
+              href="mailto:d.morales@ofiservices.com"
+              className="text-white/35 hover:text-white/55 transition-colors"
+            >
+              Daivy Morales
+            </a>
+            {" "}· © {new Date().getFullYear()} Ofi Services
+          </p>
+        </div>
       </div>
     </footer>
   )
@@ -605,9 +1216,13 @@ export function LandingPage({ onEnterDocs }: { onEnterDocs: () => void }) {
     <div className="min-h-screen bg-background text-foreground overflow-x-hidden">
       <Hero onEnterDocs={onEnterDocs} />
       <StatsStrip />
+      <About />
       <Features />
+      <GettingStarted />
       <ComponentShowcase />
-      <AdmonitionHighlight onEnterDocs={onEnterDocs} />
+      <ThemingSection />
+      <PatternsSection onEnterDocs={onEnterDocs} />
+      <AuthorSection />
       <CTASection onEnterDocs={onEnterDocs} />
       <Footer />
     </div>

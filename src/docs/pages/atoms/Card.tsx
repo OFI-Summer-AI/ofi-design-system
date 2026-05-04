@@ -1,5 +1,6 @@
 import PageHeader from "../../components/PageHeader"
 import ComponentPreview from "../../components/ComponentPreview"
+import ImportBlock from "../../components/ImportBlock"
 import {
   Card,
   CardContent,
@@ -17,6 +18,7 @@ export default function CardDoc() {
         title="Card"
         description="A surface that groups related content. Cards establish hierarchy on a page; avoid nesting cards inside cards — use Separator instead."
       />
+      <ImportBlock imports={["Card", "CardContent", "CardDescription", "CardFooter", "CardHeader", "CardTitle", "Button"]} />
       <ComponentPreview
         preview={
           <Card className="w-full max-w-sm">

@@ -13,7 +13,10 @@ export const AlertDialogOverlay = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <AlertDialogPrimitive.Overlay
     ref={ref}
-    className={cn("fixed inset-0 z-50 bg-black/60", className)}
+    className={cn(
+      "fixed inset-0 z-50 bg-black/60 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0",
+      className,
+    )}
     {...props}
   />
 ))
@@ -28,7 +31,7 @@ export const AlertDialogContent = React.forwardRef<
     <AlertDialogPrimitive.Content
       ref={ref}
       className={cn(
-        "fixed left-1/2 top-1/2 z-50 grid w-full max-w-lg -translate-x-1/2 -translate-y-1/2 gap-4 rounded-lg border border-border bg-card p-6 shadow-lg",
+        "fixed left-1/2 top-1/2 z-50 grid w-[calc(100%-2rem)] max-w-lg origin-center -translate-x-1/2 -translate-y-1/2 gap-0 overflow-hidden rounded-lg border border-border bg-card text-foreground shadow-lg duration-200 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95",
         className,
       )}
       {...props}
@@ -38,13 +41,21 @@ export const AlertDialogContent = React.forwardRef<
 AlertDialogContent.displayName = AlertDialogPrimitive.Content.displayName
 
 export function AlertDialogHeader({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) {
-  return <div className={cn("flex flex-col gap-1.5", className)} {...props} />
+  return (
+    <div
+      className={cn("flex flex-col gap-1 border-b border-border px-6 py-4 text-left", className)}
+      {...props}
+    />
+  )
 }
 
 export function AlertDialogFooter({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) {
   return (
     <div
-      className={cn("flex flex-col-reverse gap-2 sm:flex-row sm:justify-end", className)}
+      className={cn(
+        "flex flex-col-reverse gap-2 border-t border-border px-6 py-4 sm:flex-row sm:justify-end",
+        className,
+      )}
       {...props}
     />
   )
@@ -56,7 +67,7 @@ export const AlertDialogTitle = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <AlertDialogPrimitive.Title
     ref={ref}
-    className={cn("text-base font-semibold", className)}
+    className={cn("text-base font-semibold leading-none tracking-tight text-foreground", className)}
     {...props}
   />
 ))
@@ -68,7 +79,10 @@ export const AlertDialogDescription = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <AlertDialogPrimitive.Description
     ref={ref}
-    className={cn("text-sm text-foreground-muted", className)}
+    className={cn(
+      "px-6 py-4 text-sm leading-6 text-foreground-muted [&_code]:rounded [&_code]:border [&_code]:border-border [&_code]:bg-surface-100 [&_code]:px-1.5 [&_code]:py-0.5 [&_code]:font-mono [&_code]:text-[0.92em] [&_code]:font-medium [&_code]:text-foreground",
+      className,
+    )}
     {...props}
   />
 ))
@@ -80,7 +94,11 @@ export const AlertDialogAction = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <AlertDialogPrimitive.Action
     ref={ref}
-    className={cn(buttonVariants({ type: "primary", size: "default" }), className)}
+    className={cn(
+      buttonVariants({ type: "primary", size: "small" }),
+      "h-9 min-w-[96px] px-4 text-sm",
+      className,
+    )}
     {...props}
   />
 ))
@@ -92,7 +110,11 @@ export const AlertDialogCancel = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <AlertDialogPrimitive.Cancel
     ref={ref}
-    className={cn(buttonVariants({ type: "outline", size: "default" }), className)}
+    className={cn(
+      buttonVariants({ type: "outline", size: "small" }),
+      "h-9 min-w-[96px] px-4 text-sm",
+      className,
+    )}
     {...props}
   />
 ))

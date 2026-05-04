@@ -1,5 +1,6 @@
 import PageHeader from "../../components/PageHeader"
 import ComponentPreview from "../../components/ComponentPreview"
+import ImportBlock from "../../components/ImportBlock"
 import {
   Drawer,
   DrawerContent,
@@ -18,6 +19,7 @@ export default function DrawerDoc() {
         title="Drawer"
         description="A bottom-anchored sheet built on vaul. Optimized for mobile-style interactions where the user can drag to dismiss."
       />
+      <ImportBlock imports={["Drawer", "DrawerContent", "DrawerDescription", "DrawerFooter", "DrawerHeader", "DrawerTitle", "DrawerTrigger", "Button"]} />
       <ComponentPreview
         preview={
           <Drawer>

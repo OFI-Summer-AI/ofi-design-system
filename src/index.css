@@ -5,11 +5,52 @@
 @tailwind utilities;
 
 @layer base {
+  html {
+    color-scheme: dark;
+    scrollbar-width: thin;
+    scrollbar-color: hsl(0 0% 22%) transparent;
+  }
+
+  body,
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: hsl(0 0% 22%) transparent;
+    -ms-overflow-style: auto;
+  }
+
+  html::-webkit-scrollbar,
+  body::-webkit-scrollbar,
+  *::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  html::-webkit-scrollbar-track,
+  body::-webkit-scrollbar-track,
+  *::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  html::-webkit-scrollbar-thumb,
+  body::-webkit-scrollbar-thumb,
+  *::-webkit-scrollbar-thumb {
+    border-radius: 9999px;
+    background: hsl(0 0% 22%);
+  }
+
+  html::-webkit-scrollbar-thumb:hover,
+  body::-webkit-scrollbar-thumb:hover,
+  *::-webkit-scrollbar-thumb:hover {
+    background: hsl(0 0% 30%);
+  }
+
   :root {
     --background: 0 0% 100%;
     --foreground: 0 0% 9%;
     --card: 0 0% 100%;
     --card-foreground: 0 0% 9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 9%;
     --primary: 45 93% 47%;
     --primary-foreground: 0 0% 9%;
     --secondary: 0 0% 96%;
@@ -24,6 +65,21 @@
     --input: 0 0% 90%;
     --ring: 45 93% 47%;
     --radius: 0.5rem;
+
+    --brand-default: 45 93% 47%;
+    --brand-500: 45 93% 40%;
+    --chart-1: 153 60% 53%;
+    --chart-2: 173 58% 45%;
+    --chart-3: 35 90% 55%;
+    --chart-4: 280 65% 60%;
+    --chart-5: 12 76% 61%;
+
+    --foreground-light: 0 0% 32%;
+    --foreground-lighter: 0 0% 45%;
+    --surface-100: 0 0% 98%;
+    --surface-200: 0 0% 95%;
+    --surface-300: 0 0% 92%;
+    --studio: 0 0% 100%;
   }
 
   .dark {
@@ -32,6 +88,8 @@
     --foreground: 0 0% 93%;
     --card: 0 0% 11%;                /* #1c1c1c */
     --card-foreground: 0 0% 93%;
+    --popover: 0 0% 9%;
+    --popover-foreground: 0 0% 93%;
     --primary: 45 93% 47%;
     --primary-foreground: 0 0% 7%;
     --secondary: 0 0% 15%;
@@ -53,6 +111,55 @@
     --chart-3: 35 90% 55%;
     --chart-4: 280 65% 60%;
     --chart-5: 12 76% 61%;
+
+    --foreground-light: 0 0% 70%;
+    --foreground-lighter: 0 0% 55%;
+    --surface-100: 0 0% 10%;
+    --surface-200: 0 0% 13%;
+    --surface-300: 0 0% 16%;
+    --studio: 0 0% 9%;
+  }
+}
+
+@layer base {
+  /* Selection */
+  ::selection {
+    background: hsl(var(--primary) / 0.25);
+  }
+}
+
+@layer utilities {
+  /* Dotted grid background used by ComponentPreview */
+  .preview-grid-dotted {
+    background-image: radial-gradient(
+      hsl(var(--foreground) / 0.06) 1px,
+      transparent 1px
+    );
+    background-size: 16px 16px;
+    -webkit-mask-image: radial-gradient(
+      ellipse 50% 50% at 50% 50%,
+      #000 70%,
+      transparent 100%
+    );
+    mask-image: radial-gradient(
+      ellipse 50% 50% at 50% 50%,
+      #000 70%,
+      transparent 100%
+    );
+  }
+
+  .preview-grid-lined {
+    background-image: linear-gradient(
+        to right,
+        hsl(var(--foreground) / 0.04) 1px,
+        transparent 1px
+      ),
+      linear-gradient(
+        to bottom,
+        hsl(var(--foreground) / 0.04) 1px,
+        transparent 1px
+      );
+    background-size: 24px 24px;
   }
 }
 

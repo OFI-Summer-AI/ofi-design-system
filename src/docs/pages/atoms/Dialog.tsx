@@ -1,5 +1,6 @@
 import PageHeader from "../../components/PageHeader"
 import ComponentPreview from "../../components/ComponentPreview"
+import ImportBlock from "../../components/ImportBlock"
 import {
   Dialog,
   DialogContent,
@@ -18,6 +19,7 @@ export default function DialogDoc() {
         title="Dialog"
         description="A modal overlay used for short, focused interactions. Built on Radix Dialog with focus trapping, scroll locking, and dismiss-on-Escape baked in."
       />
+      <ImportBlock imports={["Dialog", "DialogContent", "DialogDescription", "DialogFooter", "DialogHeader", "DialogTitle", "DialogTrigger", "Button"]} />
       <ComponentPreview
         preview={
           <Dialog>

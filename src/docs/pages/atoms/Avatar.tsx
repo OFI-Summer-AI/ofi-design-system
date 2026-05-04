@@ -1,5 +1,6 @@
 import PageHeader from "../../components/PageHeader"
 import ComponentPreview from "../../components/ComponentPreview"
+import ImportBlock from "../../components/ImportBlock"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 
 export default function AvatarDoc() {
@@ -9,6 +10,7 @@ export default function AvatarDoc() {
         title="Avatar"
         description="A circular image used to represent a user or workspace. Always provide a fallback so the avatar still renders when the image fails to load."
       />
+      <ImportBlock imports={["Avatar", "AvatarFallback", "AvatarImage"]} />
       <ComponentPreview
         preview={
           <div className="flex items-center gap-3">
